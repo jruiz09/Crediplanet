@@ -2,22 +2,31 @@ import { Box, Button, Checkbox, FormControlLabel, Grid, IconButton, TextField, T
 import { MaterialReactTable } from "material-react-table";
 import React, { useEffect, useMemo, useState } from "react";
 import BoxGeneral from "../components/utils/BoxGeneral";
+import ButtonNuevo from "../components/utils/ButtonNuevo";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "@sweetalert2/theme-material-ui/material-ui.css";
 import UpdateIcon from '@mui/icons-material/Update';
 import Modals from "../components/utils/Modal";
-import { getUsuarios, putUsuario, setRolesUsuario } from "../services/Usuarios";
+import { getUsuarios, postUsuario, putUsuario, setRolesUsuario } from "../services/Usuarios";
 import { getRoles } from "../services/Roles";
 
 const Usuarios = () => {
   const [token] = useState(localStorage.getItem("user-token"));
   const [modalEditar, setModalEditar] = useState(false);
+  const [mostrarBox, setMostrarBox] = useState(false);
   const [usuarios, setUsuarios] = useState([]);
   const [roles, setRoles] = useState([]);
 
   const [idUsuario, setIdUsuario] = useState("");
   const [idCobrador, setIdCobrador] = useState("");
   const [rolIdsSeleccionados, setRolIdsSeleccionados] = useState([]);
+
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [idEmpresa, setIdEmpresa] = useState("1");
+  const [idCobradorNuevo, setIdCobradorNuevo] = useState("");
+  const [rolIdsNuevo, setRolIdsNuevo] = useState([]);
 
   const fetchUsuarios = async () => {
     const data = await getUsuarios(token);
@@ -110,8 +119,113 @@ const Usuarios = () => {
     }
   };
 
+  const resetCamposNuevo = () => {
+    setUsername("");
+    setEmail("");
+    setPassword("");
+    setIdEmpresa("1");
+    setIdCobradorNuevo("");
+    setRolIdsNuevo([]);
+  };
+
+  const AddUsuario = () => {
+    resetCamposNuevo();
+    setMostrarBox(!mostrarBox);
+  };
+
+  const toggleSeleccionRolNuevo = (idRol) => {
+    setRolIdsNuevo((prev) =>
+      prev.includes(idRol) ? prev.filter((id) => id !== idRol) : [...prev, idRol]
+    );
+  };
+
+  const GuardarNuevoUsuario = () => {
+    if ([username, email, password, idEmpresa].includes("")) {
+      Swal.fire({
+        icon: "error",
+        title: "Faltan campos obligatorios",
+        text: "Usuario, email, contraseña e idempresa son obligatorios.",
+      });
+      return;
+    }
+    EjecutaPost();
+  };
+
+  const EjecutaPost = async () => {
+    const Post = {
+      username,
+      email,
+      password,
+      idempresa: idEmpresa,
+      idcobrador: idCobradorNuevo === "" ? null : idCobradorNuevo,
+      rolIds: rolIdsNuevo,
+    };
+    const resultado = await postUsuario(Post, token);
+    if (resultado.status === 200) {
+      Swal.fire(resultado.data.message, "", "success");
+      fetchUsuarios();
+      resetCamposNuevo();
+      setMostrarBox(false);
+    } else {
+      Swal.fire("Error: " + (resultado.response?.data?.message || resultado.message), "", "error");
+    }
+  };
+
   return (
     <BoxGeneral texto="Usuarios">
+      <ButtonNuevo Texto="Nuevo" Funcion={AddUsuario} />
+      {mostrarBox ? (
+        <Box sx={{ boxShadow: 4, mx: 5, my: 5, p: 4 }}>
+          <Grid container spacing={2} sx={{ mt: 1, mb: 2 }} justifyContent="center">
+            <Grid item xs={12} sm={3}>
+              <TextField label="Usuario" variant="outlined" fullWidth value={username} onChange={(e) => setUsername(e.target.value)} />
+            </Grid>
+            <Grid item xs={12} sm={3}>
+              <TextField label="Email" variant="outlined" fullWidth value={email} onChange={(e) => setEmail(e.target.value)} />
+            </Grid>
+            <Grid item xs={12} sm={3}>
+              <TextField label="Contraseña" type="password" variant="outlined" fullWidth value={password} onChange={(e) => setPassword(e.target.value)} />
+            </Grid>
+            <Grid item xs={12} sm={2}>
+              <TextField label="ID Empresa" variant="outlined" fullWidth value={idEmpresa} onChange={(e) => setIdEmpresa(e.target.value)} />
+            </Grid>
+            <Grid item xs={12} sm={3}>
+              <TextField
+                label="ID Cobrador vinculado"
+                helperText="Requerido para entrar a mobile. Opcional."
+                variant="outlined"
+                fullWidth
+                value={idCobradorNuevo}
+                onChange={(e) => setIdCobradorNuevo(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              {roles.map((r) => (
+                <FormControlLabel
+                  key={r.id}
+                  sx={{ display: "block", textAlign: "left" }}
+                  control={
+                    <Checkbox
+                      checked={rolIdsNuevo.includes(r.id)}
+                      onChange={() => toggleSeleccionRolNuevo(r.id)}
+                    />
+                  }
+                  label={r.name}
+                />
+              ))}
+            </Grid>
+          </Grid>
+          <Grid container justifyContent="center">
+            <Button
+              sx={{ boxShadow: 4, color: "white", m: 1, p: 1, backgroundColor: "#922b3e", "&:hover": { background: "#d87d8e" } }}
+              onClick={() => GuardarNuevoUsuario()}
+            >
+              Guardar
+            </Button>
+          </Grid>
+        </Box>
+      ) : null}
+
       <Box sx={{ mt: 2 }}>
         <MaterialReactTable data={usuarios} columns={columns} />
 

@@ -3,6 +3,19 @@ import api from "./api";
 
 const UrlUsuarios = api.urlAPI + "usuarios";
 
+export const postUsuario = async (usuario, token) => {
+  try {
+    const response = await axios.post(UrlUsuarios, usuario, {
+      headers: {
+        "cs-token": token,
+      },
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
 export const getUsuarios = async (token) => {
   try {
     const response = await axios(UrlUsuarios, {

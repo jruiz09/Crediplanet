@@ -1,6 +1,45 @@
 const db = require("../models");
+const bcrypt = require("bcryptjs");
 const User = db.user;
 const Role = db.role;
+
+exports.postUsuario = async (req, res) => {
+  try {
+    const { username, email, password, idempresa, idcobrador, rolIds } = req.body;
+
+    if (!username || !email || !password || !idempresa) {
+      return res.status(400).send({ message: "username, email, password e idempresa son obligatorios" });
+    }
+
+    const existente = await User.findOne({
+      where: { [db.Sequelize.Op.or]: [{ username }, { email }] }
+    });
+    if (existente) {
+      return res.status(400).send({ message: "Ya existe un usuario con ese username o email" });
+    }
+
+    const usuario = await User.create({
+      username,
+      email,
+      password: bcrypt.hashSync(password, 8),
+      idempresa,
+      idcobrador: idcobrador || null
+    });
+
+    if (Array.isArray(rolIds) && rolIds.length > 0) {
+      await usuario.setRoles(rolIds);
+    }
+
+    const usuarioCreado = await User.findByPk(usuario.id, {
+      attributes: { exclude: ["password"] },
+      include: [{ model: Role, through: { attributes: [] } }]
+    });
+
+    res.status(200).send({ message: "Usuario creado correctamente", data: usuarioCreado });
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
 
 exports.getUsuarios = async (req, res) => {
   try {
