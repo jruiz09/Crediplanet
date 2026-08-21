@@ -5,11 +5,17 @@ const Role = db.role;
 
 exports.postUsuario = async (req, res) => {
   try {
-    const { username, email, password, idempresa, idcobrador, rolIds } = req.body;
+    const { username, email, password, idcobrador, rolIds } = req.body;
 
-    if (!username || !email || !password || !idempresa) {
-      return res.status(400).send({ message: "username, email, password e idempresa son obligatorios" });
+    if (!username || !email || !password) {
+      return res.status(400).send({ message: "username, email y password son obligatorios" });
     }
+
+    const adminUser = await User.findByPk(req.userId);
+    if (!adminUser || !adminUser.idempresa) {
+      return res.status(400).send({ message: "El usuario administrador no tiene una empresa asociada" });
+    }
+    const idempresa = adminUser.idempresa;
 
     const existente = await User.findOne({
       where: { [db.Sequelize.Op.or]: [{ username }, { email }] }

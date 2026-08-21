@@ -18,6 +18,19 @@ export const getCobradores = async (token) => {
   }
 };
 
+export const getCobradoresPorEmpresa = async (idempresa, token) => {
+  try {
+    const response = await axios(Urlcobradores + "/" + idempresa, {
+      headers: {
+        "cs-token": token,
+      },
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
 export const postCobradores = async (cobrador,token) => {
   try {
     const response = await axios.post(Urlcobradores, cobrador, {

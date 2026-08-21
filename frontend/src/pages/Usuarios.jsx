@@ -1,4 +1,4 @@
-import { Box, Button, Checkbox, FormControlLabel, Grid, IconButton, TextField, Tooltip } from "@mui/material";
+import { Autocomplete, Box, Button, Checkbox, FormControlLabel, Grid, IconButton, TextField, Tooltip } from "@mui/material";
 import { MaterialReactTable } from "material-react-table";
 import React, { useEffect, useMemo, useState } from "react";
 import BoxGeneral from "../components/utils/BoxGeneral";
@@ -9,6 +9,7 @@ import UpdateIcon from '@mui/icons-material/Update';
 import Modals from "../components/utils/Modal";
 import { getUsuarios, postUsuario, putUsuario, setRolesUsuario } from "../services/Usuarios";
 import { getRoles } from "../services/Roles";
+import { getCobradoresPorEmpresa } from "../services/Cobradores";
 
 const Usuarios = () => {
   const [token] = useState(localStorage.getItem("user-token"));
@@ -16,6 +17,7 @@ const Usuarios = () => {
   const [mostrarBox, setMostrarBox] = useState(false);
   const [usuarios, setUsuarios] = useState([]);
   const [roles, setRoles] = useState([]);
+  const [cobradoresDisponibles, setCobradoresDisponibles] = useState([]);
 
   const [idUsuario, setIdUsuario] = useState("");
   const [idCobrador, setIdCobrador] = useState("");
@@ -24,7 +26,6 @@ const Usuarios = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [idEmpresa, setIdEmpresa] = useState("1");
   const [idCobradorNuevo, setIdCobradorNuevo] = useState("");
   const [rolIdsNuevo, setRolIdsNuevo] = useState([]);
 
@@ -41,6 +42,19 @@ const Usuarios = () => {
     const data = await getRoles(token);
     if (data.status === 200) {
       setRoles(data.data);
+    }
+  };
+
+  const fetchCobradoresActivos = async (idempresa) => {
+    if (!idempresa) {
+      setCobradoresDisponibles([]);
+      return;
+    }
+    const data = await getCobradoresPorEmpresa(idempresa, token);
+    if (data.status === 200) {
+      setCobradoresDisponibles((data.data || []).filter((c) => c.activo));
+    } else {
+      setCobradoresDisponibles([]);
     }
   };
 
@@ -85,6 +99,7 @@ const Usuarios = () => {
     setIdUsuario(fila.row.original.id);
     setIdCobrador(fila.row.original.idcobrador || "");
     setRolIdsSeleccionados((fila.row.original.roles || []).map((r) => r.id));
+    fetchCobradoresActivos(fila.row.original.idempresa);
     setModalEditar(true);
   };
 
@@ -123,13 +138,13 @@ const Usuarios = () => {
     setUsername("");
     setEmail("");
     setPassword("");
-    setIdEmpresa("1");
     setIdCobradorNuevo("");
     setRolIdsNuevo([]);
   };
 
   const AddUsuario = () => {
     resetCamposNuevo();
+    fetchCobradoresActivos(localStorage.getItem("empresa"));
     setMostrarBox(!mostrarBox);
   };
 
@@ -140,11 +155,11 @@ const Usuarios = () => {
   };
 
   const GuardarNuevoUsuario = () => {
-    if ([username, email, password, idEmpresa].includes("")) {
+    if ([username, email, password].includes("")) {
       Swal.fire({
         icon: "error",
         title: "Faltan campos obligatorios",
-        text: "Usuario, email, contraseña e idempresa son obligatorios.",
+        text: "Usuario, email y contraseña son obligatorios.",
       });
       return;
     }
@@ -156,7 +171,6 @@ const Usuarios = () => {
       username,
       email,
       password,
-      idempresa: idEmpresa,
       idcobrador: idCobradorNuevo === "" ? null : idCobradorNuevo,
       rolIds: rolIdsNuevo,
     };
@@ -170,6 +184,23 @@ const Usuarios = () => {
       Swal.fire("Error: " + (resultado.response?.data?.message || resultado.message), "", "error");
     }
   };
+
+  const SelectorCobrador = ({ value, onChange }) => (
+    <Autocomplete
+      options={cobradoresDisponibles}
+      getOptionLabel={(c) => c.nombreyapellido || ""}
+      isOptionEqualToValue={(option, val) => option.idcobrador === val.idcobrador}
+      value={cobradoresDisponibles.find((c) => c.idcobrador === value) || null}
+      onChange={(event, newValue) => onChange(newValue ? newValue.idcobrador : "")}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label="Cobrador vinculado"
+          helperText="Requerido para entrar a la app mobile. Solo se listan cobradores activos de la misma empresa. Opcional."
+        />
+      )}
+    />
+  );
 
   return (
     <BoxGeneral texto="Usuarios">
@@ -186,18 +217,8 @@ const Usuarios = () => {
             <Grid item xs={12} sm={3}>
               <TextField label="Contraseña" type="password" variant="outlined" fullWidth value={password} onChange={(e) => setPassword(e.target.value)} />
             </Grid>
-            <Grid item xs={12} sm={2}>
-              <TextField label="ID Empresa" variant="outlined" fullWidth value={idEmpresa} onChange={(e) => setIdEmpresa(e.target.value)} />
-            </Grid>
             <Grid item xs={12} sm={3}>
-              <TextField
-                label="ID Cobrador vinculado"
-                helperText="Requerido para entrar a mobile. Opcional."
-                variant="outlined"
-                fullWidth
-                value={idCobradorNuevo}
-                onChange={(e) => setIdCobradorNuevo(e.target.value)}
-              />
+              <SelectorCobrador value={idCobradorNuevo} onChange={setIdCobradorNuevo} />
             </Grid>
             <Grid item xs={12} sm={6}>
               {roles.map((r) => (
@@ -235,14 +256,7 @@ const Usuarios = () => {
           contenido={
             <Grid container spacing={2} justifyContent="center">
               <Grid item xs={12} sm={6}>
-                <TextField
-                  label="ID Cobrador vinculado"
-                  helperText="Requerido para que el usuario pueda entrar a la app mobile. Dejar vacio para desvincular."
-                  variant="outlined"
-                  fullWidth
-                  value={idCobrador}
-                  onChange={(e) => setIdCobrador(e.target.value)}
-                />
+                <SelectorCobrador value={idCobrador} onChange={setIdCobrador} />
               </Grid>
               <Grid item xs={12} sm={6}>
                 {roles.map((r) => (
