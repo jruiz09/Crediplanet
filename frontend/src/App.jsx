@@ -16,12 +16,16 @@ import MoneyOffIcon from '@mui/icons-material/MoneyOff';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import AddchartIcon from '@mui/icons-material/Addchart';
 import PasswordIcon from '@mui/icons-material/Password';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import DisplaySettingsIcon from '@mui/icons-material/DisplaySettings';
+import GroupIcon from '@mui/icons-material/Group';
 
-const navegationLinks = [
+export const navegationLinks = [
   {
     title: "Home",
-    path: "/",
+    path: "/Home",
     icon: <HomeIcon />,
+    codigo: "HOME"
   },
   {
     title: "Clientes",
@@ -122,6 +126,27 @@ const navegationLinks = [
     path: "/Notificaciones",
     icon: <DashboardIcon/>,
     codigo: "NOTIFICACIONES"
+  }
+  ,
+  {
+    title: "Roles",
+    path: "/Roles",
+    icon: <AdminPanelSettingsIcon/>,
+    codigo: "ROLES"
+  }
+  ,
+  {
+    title: "Pantallas",
+    path: "/Pantallas",
+    icon: <DisplaySettingsIcon/>,
+    codigo: "PANTALLAS"
+  }
+  ,
+  {
+    title: "Usuarios",
+    path: "/Usuarios",
+    icon: <GroupIcon/>,
+    codigo: "USUARIOS"
   }
   ,
   {

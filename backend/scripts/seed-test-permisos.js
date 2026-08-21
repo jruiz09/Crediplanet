@@ -25,6 +25,11 @@ const bcrypt = require("bcryptjs");
     const rolUser = await db.role.create({ id: 1, name: "user" });
     const rolAdmin = await db.role.create({ id: 3, name: "admin" });
 
+    const pantallaHome = await db.Pantalla.create({
+      codigo: "HOME",
+      nombre: "Home",
+      app: "adm"
+    });
     const pantallaClientesAdm = await db.Pantalla.create({
       codigo: "CLIENTES",
       nombre: "Clientes",
@@ -40,10 +45,35 @@ const bcrypt = require("bcryptjs");
       nombre: "Ruta de cobranza",
       app: "mobile"
     });
+    const pantallaRoles = await db.Pantalla.create({
+      codigo: "ROLES",
+      nombre: "Roles",
+      app: "adm"
+    });
+    const pantallaPantallas = await db.Pantalla.create({
+      codigo: "PANTALLAS",
+      nombre: "Pantallas",
+      app: "adm"
+    });
+    const pantallaUsuarios = await db.Pantalla.create({
+      codigo: "USUARIOS",
+      nombre: "Usuarios",
+      app: "adm"
+    });
 
-    // El rol "user" solo tiene permiso sobre CLIENTES (adm) y RUTA_COBRANZA (mobile).
+    // El rol "user" solo tiene permiso sobre HOME, CLIENTES (adm) y RUTA_COBRANZA (mobile).
     // COBRADORES (adm) queda fuera a propósito para probar el caso negativo.
-    await rolUser.setPantallas([pantallaClientesAdm.id, pantallaRutaMobile.id]);
+    await rolUser.setPantallas([pantallaHome.id, pantallaClientesAdm.id, pantallaRutaMobile.id]);
+
+    // El rol "admin" tiene acceso a todo, incluida la administracion de roles/pantallas/usuarios.
+    await rolAdmin.setPantallas([
+      pantallaHome.id,
+      pantallaClientesAdm.id,
+      pantallaCobradoresAdm.id,
+      pantallaRoles.id,
+      pantallaPantallas.id,
+      pantallaUsuarios.id
+    ]);
 
     const passwordHash = bcrypt.hashSync("test1234", 8);
 
@@ -74,11 +104,20 @@ const bcrypt = require("bcryptjs");
     });
     await userConCobradorInactivo.setRoles([rolUser.id]);
 
+    const userAdmin = await db.user.create({
+      username: "admin.test",
+      email: "admin.test@test.com",
+      password: passwordHash,
+      idempresa: empresa.idempresa
+    });
+    await userAdmin.setRoles([rolAdmin.id]);
+
     console.log(JSON.stringify({
       empresaId: empresa.idempresa,
       userConCobradorActivoId: userConCobradorActivo.id,
       userSinCobradorId: userSinCobrador.id,
-      userConCobradorInactivoId: userConCobradorInactivo.id
+      userConCobradorInactivoId: userConCobradorInactivo.id,
+      userAdminId: userAdmin.id
     }, null, 2));
 
     process.exit(0);

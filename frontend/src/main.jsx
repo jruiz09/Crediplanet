@@ -32,6 +32,10 @@ import CambiarContraseña from "./pages/CambiarContraseña";
 import ResumenCliente from "./pages/ResumenCliente.jsx";
 import NotificacionesAdmin from "./pages/NotificacionesAdmin.jsx";
 import RutaProtegida from "./components/utils/RutaProtegida.jsx";
+import InicioRedirect from "./components/utils/InicioRedirect.jsx";
+import Roles from "./pages/Roles.jsx";
+import Pantallas from "./pages/Pantallas.jsx";
+import Usuarios from "./pages/Usuarios.jsx";
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -48,9 +52,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route
             path=""
             element={
-                <Home />
+                <InicioRedirect />
             }
           />
+        <Route path='/Home' element={<RutaProtegida codigo="HOME"><Home /></RutaProtegida>} />
 
         <Route path='/Clientes' element={<RutaProtegida codigo="CLIENTES"><Clientes /></RutaProtegida>} />
         <Route path='/Cobradores' element={<RutaProtegida codigo="COBRADORES"><Cobradores /></RutaProtegida>} />
@@ -70,6 +75,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path='/ResumenCliente' element={<RutaProtegida codigo="RESUMEN_CLIENTE"><ResumenCliente /></RutaProtegida>} />
         <Route path='/CambiarContraseña' element={<CambiarContraseña />} />
         <Route path='/Notificaciones' element={<RutaProtegida codigo="NOTIFICACIONES"><NotificacionesAdmin /></RutaProtegida>} />
+        <Route path='/Roles' element={<RutaProtegida codigo="ROLES"><Roles /></RutaProtegida>} />
+        <Route path='/Pantallas' element={<RutaProtegida codigo="PANTALLAS"><Pantallas /></RutaProtegida>} />
+        <Route path='/Usuarios' element={<RutaProtegida codigo="USUARIOS"><Usuarios /></RutaProtegida>} />
         </Route>
         <Route path='*' element={<NotFound />} />
 
