@@ -1,0 +1,39 @@
+{
+  "name": "creditsystem",
+  "version": "1.0.0",
+  "description": "Sistema de créditos",
+  "main": "server.js",
+  "scripts": {
+"start": "node server.js",
+  "dev": "nodemon server.js",
+    "debug": "nodemon --inspect server.js"
+  },
+  "keywords": [
+    "node.js",
+    "express",
+    "login",
+    "registration",
+    "rest",
+    "api",
+    "jwt",
+    "authentication",
+    "authorization",
+    "mysql"
+  ],
+  "author": "Juan Ruiz",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-session": "^2.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.2",
+    "http": "^0.0.1-security",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.0.0",
+    "mysql2": "^3.9.2",
+    "nodemon": "^3.1.0",
+    "sequelize": "^6.37.1",
+    "socket.io": "^4.8.1"
+  }
+}
