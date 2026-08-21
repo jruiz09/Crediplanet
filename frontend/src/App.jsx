@@ -1,7 +1,8 @@
 import { Outlet, useNavigate} from "react-router-dom";
 import HomeIcon from '@mui/icons-material/Home';
 import Navbar from './components/Navbar/Navbar';
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { UserContext } from "./context/UserProvider";
 import BuildIcon from '@mui/icons-material/Build';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
@@ -25,87 +26,102 @@ const navegationLinks = [
   {
     title: "Clientes",
     path: "/Clientes",
-    icon: <PermIdentityIcon/>
+    icon: <PermIdentityIcon/>,
+    codigo: "CLIENTES"
   },
   {
     title: "Cobradores",
     path: "/Cobradores",
-    icon: <TransferWithinAStationIcon/>
+    icon: <TransferWithinAStationIcon/>,
+    codigo: "COBRADORES"
   },
   {
     title: "Planes",
     path: "/Planes",
-    icon: <BuildIcon/>
+    icon: <BuildIcon/>,
+    codigo: "PLANES"
   }
   ,
   {
     title: "Creditos",
     path: "/Creditos",
-    icon: <AttachMoneyIcon/>
+    icon: <AttachMoneyIcon/>,
+    codigo: "CREDITOS"
   }
   ,
   {
     title: "Caja",
     path: "/Caja",
-    icon: <AccountBalanceIcon/>
+    icon: <AccountBalanceIcon/>,
+    codigo: "CAJA"
   }  ,
   {
     title: "Rendición",
     path: "/Rendicion",
-    icon: <PaidIcon/>
+    icon: <PaidIcon/>,
+    codigo: "RENDICION"
   }
   ,
   {
     title: "Productividad",
     path: "/Productividad",
-    icon: <CalculateIcon/>
+    icon: <CalculateIcon/>,
+    codigo: "PRODUCTIVIDAD"
   }
   ,
   {
     title: "ProductividadFechas",
     path: "/ProductividadFechas",
-    icon: <CalculateIcon/>
+    icon: <CalculateIcon/>,
+    codigo: "PRODUCTIVIDAD_FECHAS"
   },
   {
     title: "PagoCobradores",
     path: "/PagoCobradores",
-    icon: <RequestQuoteIcon/>
+    icon: <RequestQuoteIcon/>,
+    codigo: "PAGO_COBRADORES"
   }
   ,
   {
     title: "No Laborales",
     path: "/NoLaborales",
-    icon: <CalendarMonthIcon/>
+    icon: <CalendarMonthIcon/>,
+    codigo: "NO_LABORALES"
   }
   ,
   {
     title: "Clientes Morosos",
     path: "/ClientesMorosos",
-    icon: <MoneyOffIcon/>
+    icon: <MoneyOffIcon/>,
+    codigo: "CLIENTES_MOROSOS"
   }  ,
   {
     title: "Informes",
     path: "/Informes",
-    icon: <DashboardIcon/>
+    icon: <DashboardIcon/>,
+    codigo: "INFORMES"
   }
   ,
   {
     title: "Gastos",
     path: "/Gastos",
-    icon: <AddchartIcon/>
+    icon: <AddchartIcon/>,
+    codigo: "GASTOS"
   }
   ,
-    
+
   {
     title: "Resumen Clientes",
     path: "/ResumenCliente",
-    icon: <PermIdentityIcon/>
+    icon: <PermIdentityIcon/>,
+    codigo: "RESUMEN_CLIENTE"
   },
-   
+
   {
     title: "Notificaciones Cobradores",
     path: "/Notificaciones",
-    icon: <DashboardIcon/>
+    icon: <DashboardIcon/>,
+    codigo: "NOTIFICACIONES"
   }
   ,
   {
@@ -118,8 +134,11 @@ const navegationLinks = [
 
 function App() {
   const navigate = useNavigate();
+  const { tienePermisoPantalla } = useContext(UserContext);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const linksPermitidos = navegationLinks.filter((link) => tienePermisoPantalla(link.codigo));
 
     const checkUserToken = () => {
         const userToken = localStorage.getItem('user-token');
@@ -140,7 +159,7 @@ function App() {
     <>
 
 <React.Fragment>
-			 <Navbar navegationLinks={navegationLinks} children= {<Outlet/>}>
+			 <Navbar navegationLinks={linksPermitidos} children= {<Outlet/>}>
        
         </Navbar>
         

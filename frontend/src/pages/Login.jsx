@@ -16,6 +16,8 @@ import api from '../components/utils/api';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import swal from "sweetalert";
+import { useContext } from "react";
+import { UserContext } from "../context/UserProvider";
 
 function Copyright(props) {
   return (
@@ -37,6 +39,7 @@ export default function Login() {
   
     const loginAPI = api.urlAPI + 'auth/signin';
     const navigate = useNavigate();
+    const { iniciarSession } = useContext(UserContext);
 
 
 
@@ -82,6 +85,7 @@ export default function Login() {
                 localStorage.setItem('empresa', Empresa);
                console.log("token ", token)
                console.log("localstorage ", localStorage)
+                iniciarSession(username);
                 setTimeout(() => {
                     navigate('/');
                 }, 500);

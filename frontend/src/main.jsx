@@ -31,6 +31,7 @@ import Gastos from "./pages/Gastos";
 import CambiarContraseña from "./pages/CambiarContraseña";
 import ResumenCliente from "./pages/ResumenCliente.jsx";
 import NotificacionesAdmin from "./pages/NotificacionesAdmin.jsx";
+import RutaProtegida from "./components/utils/RutaProtegida.jsx";
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -38,6 +39,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
       <CssBaseline />
       <BrowserRouter basename={"/"}>
+      <UserProvider>
       <Routes>
         <Route path="/Auth" element={<Auth />}>
           <Route path="Login" element={<Login />} />
@@ -49,29 +51,30 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 <Home />
             }
           />
-                 
-        <Route path='/Clientes' element={<Clientes />} />
-        <Route path='/Cobradores' element={<Cobradores />} />
-        <Route path='/Planes' element={<Planes />} />
-        <Route path='/Creditos' element={<Creditos />} />
-        <Route path='/CreditosDetalle' element={<CreditosDetalle />} />
-        <Route path='/Caja' element={<Caja />} />
-        <Route path='/Rendicion' element={<Rendicion />} />
-        <Route path='/Productividad' element={<Productividad />} />
-        <Route path='/ProductividadFechas' element={<ProductividadFechas />} />
-        <Route path='/PagoCobradores' element={<PagoCobradores />} />
+
+        <Route path='/Clientes' element={<RutaProtegida codigo="CLIENTES"><Clientes /></RutaProtegida>} />
+        <Route path='/Cobradores' element={<RutaProtegida codigo="COBRADORES"><Cobradores /></RutaProtegida>} />
+        <Route path='/Planes' element={<RutaProtegida codigo="PLANES"><Planes /></RutaProtegida>} />
+        <Route path='/Creditos' element={<RutaProtegida codigo="CREDITOS"><Creditos /></RutaProtegida>} />
+        <Route path='/CreditosDetalle' element={<RutaProtegida codigo="CREDITOS"><CreditosDetalle /></RutaProtegida>} />
+        <Route path='/Caja' element={<RutaProtegida codigo="CAJA"><Caja /></RutaProtegida>} />
+        <Route path='/Rendicion' element={<RutaProtegida codigo="RENDICION"><Rendicion /></RutaProtegida>} />
+        <Route path='/Productividad' element={<RutaProtegida codigo="PRODUCTIVIDAD"><Productividad /></RutaProtegida>} />
+        <Route path='/ProductividadFechas' element={<RutaProtegida codigo="PRODUCTIVIDAD_FECHAS"><ProductividadFechas /></RutaProtegida>} />
+        <Route path='/PagoCobradores' element={<RutaProtegida codigo="PAGO_COBRADORES"><PagoCobradores /></RutaProtegida>} />
         <Route path='/Vale' element={<Vale />} />
-        <Route path='/NoLaborales' element={<NoLaborales />} />
-        <Route path='/ClientesMorosos' element={<ClientesMorosos />} />
-        <Route path='/Informes' element={<Informes />} />
-        <Route path='/Gastos' element={<Gastos />} />
-        <Route path='/ResumenCliente' element={<ResumenCliente />} />
+        <Route path='/NoLaborales' element={<RutaProtegida codigo="NO_LABORALES"><NoLaborales /></RutaProtegida>} />
+        <Route path='/ClientesMorosos' element={<RutaProtegida codigo="CLIENTES_MOROSOS"><ClientesMorosos /></RutaProtegida>} />
+        <Route path='/Informes' element={<RutaProtegida codigo="INFORMES"><Informes /></RutaProtegida>} />
+        <Route path='/Gastos' element={<RutaProtegida codigo="GASTOS"><Gastos /></RutaProtegida>} />
+        <Route path='/ResumenCliente' element={<RutaProtegida codigo="RESUMEN_CLIENTE"><ResumenCliente /></RutaProtegida>} />
         <Route path='/CambiarContraseña' element={<CambiarContraseña />} />
-        <Route path='/Notificaciones' element={<NotificacionesAdmin />} />
+        <Route path='/Notificaciones' element={<RutaProtegida codigo="NOTIFICACIONES"><NotificacionesAdmin /></RutaProtegida>} />
         </Route>
         <Route path='*' element={<NotFound />} />
 
       </Routes>
+      </UserProvider>
     </BrowserRouter>
   </React.StrictMode>
 )

@@ -1,3 +1,75 @@
+const db = require("../models");
+const User = db.user;
+const Role = db.role;
+
+exports.getUsuarios = async (req, res) => {
+  try {
+    const usuarios = await User.findAll({
+      attributes: { exclude: ["password"] },
+      include: [{ model: Role, through: { attributes: [] } }],
+      order: [["id", "ASC"]]
+    });
+    res.status(200).send(usuarios);
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
+
+exports.getUsuario = async (req, res) => {
+  try {
+    const usuario = await User.findByPk(req.params.id, {
+      attributes: { exclude: ["password"] },
+      include: [{ model: Role, through: { attributes: [] } }]
+    });
+    if (!usuario) {
+      return res.status(404).send({ message: "Usuario no encontrado" });
+    }
+    res.status(200).send(usuario);
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
+
+exports.putUsuario = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const body = { ...req.body };
+    delete body.password;
+    delete body.id;
+
+    const [num] = await User.update(body, { where: { id } });
+
+    if (num === 1) {
+      res.status(200).send({ message: "Usuario actualizado correctamente" });
+    } else {
+      res.status(400).send({ message: `No se puede actualizar el usuario id=${id}.` });
+    }
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
+
+exports.setRolesUsuario = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const { rolIds } = req.body;
+
+    if (!Array.isArray(rolIds)) {
+      return res.status(400).send({ message: "rolIds debe ser un array" });
+    }
+
+    const usuario = await User.findByPk(id);
+    if (!usuario) {
+      return res.status(404).send({ message: "Usuario no encontrado" });
+    }
+
+    await usuario.setRoles(rolIds);
+    res.status(200).send({ message: "Roles del usuario actualizados correctamente" });
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
+
 exports.allAccess = (req, res) => {
   res.status(200).send("OK");
 };
