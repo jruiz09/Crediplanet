@@ -15,7 +15,7 @@ const server = http.createServer(app);
 const io = new Server(server, {
   path: "/api/socket.io",
   cors: {
-    origin: "https://app.cplanet.com.ar",
+    origin: process.env.CORS_ORIGIN || "https://app.cplanet.com.ar",
     methods: ["GET", "POST"],
     credentials: true,
   },
@@ -66,7 +66,7 @@ require("./routes/notificacion.routes")(app);
 
 // Ruta simple para test
 app.get("/", (req, res) => {
-  res.json({ message: "Bienvenidos a crediplanet." });
+  res.json({ message: "Bienvenidos a " + (process.env.APP_NOMBRE || "crediplanet") + "." });
 });
 
 // Socket.IO

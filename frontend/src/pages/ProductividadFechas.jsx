@@ -70,7 +70,7 @@ const BuscarProductvidad = async () => {
         accessorKey: "Fecha",
         header: "Fecha",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
         Cell: ({ row }) => <div>{formatearFecha(row.original.Fecha)}</div>,
       },
@@ -78,14 +78,14 @@ const BuscarProductvidad = async () => {
         accessorKey: "cobrador",
         header: "Cobrador",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
       },
       {
         accessorKey: "Estimado",
         header: "Estimado",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
         Cell: ({ row }) => <div>{formatearNumero(row.original.Estimado)}</div>,
       },
@@ -93,7 +93,7 @@ const BuscarProductvidad = async () => {
         accessorKey: "Real",
         header: "Real",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
         Cell: ({ row }) => <div>{formatearNumero(row.original.Real)}</div>,
       },
@@ -101,7 +101,7 @@ const BuscarProductvidad = async () => {
         accessorKey: "Productividad",
         header: "Productividad",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
         Cell: ({ cell }) => (
           <Box
@@ -125,7 +125,7 @@ const BuscarProductvidad = async () => {
         accessorKey: "acciones",
         header: "Acciones",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
         Cell: ({ row }) => (
           <Button

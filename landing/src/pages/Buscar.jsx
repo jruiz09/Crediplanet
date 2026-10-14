@@ -85,7 +85,7 @@ export default function Buscar() {
           onChange={(e) => setIdCredito(e.target.value)}
         />
         <button
-          className="bg-blue-600 text-white px-4 rounded hover:bg-blue-700 transition"
+          className="bg-marca-600 text-white px-4 rounded hover:bg-marca-700 transition"
           onClick={buscarCredito}
         >
           Buscar
@@ -96,8 +96,8 @@ export default function Buscar() {
 
       {dataCredito && (
         <>
-          <div className="bg-blue-50 border-l-4 border-blue-600 rounded-md p-4 shadow-inner mb-6">
-            <div className="text-xs text-blue-800 uppercase font-bold tracking-wide mb-1">
+          <div className="bg-marca-50 border-l-4 border-marca-600 rounded-md p-4 shadow-inner mb-6">
+            <div className="text-xs text-marca-800 uppercase font-bold tracking-wide mb-1">
               Resumen del Crédito
             </div>
             <div className="text-sm text-gray-800">
@@ -134,7 +134,7 @@ export default function Buscar() {
                 </div>
                 <div>
                   Restante:{" "}
-                  <span className="font-bold text-blue-700">
+                  <span className="font-bold text-marca-700">
                     $
                     {(
                       dataCredito.montototal - dataCredito.monto
@@ -185,12 +185,12 @@ export default function Buscar() {
                       <span className="block">
                         Pagado: ${cuota.montopago?.toLocaleString() || 0}
                       </span>
-                      <span className="block font-bold text-blue-700">
+                      <span className="block font-bold text-marca-700">
                         Restante: ${restante.toLocaleString()}
                       </span>
                     </div>
                     <button
-                      className="mt-3 bg-blue-600 hover:bg-blue-700 text-white text-sm py-2 rounded-full transition"
+                      className="mt-3 bg-marca-600 hover:bg-marca-700 text-white text-sm py-2 rounded-full transition"
                       onClick={() => {
                         setCuotaSeleccionada(cuota);
                         setModalAbierto(true);
@@ -255,7 +255,7 @@ export default function Buscar() {
     />
     <span
       className={`w-5 h-5 flex items-center justify-center border-2 rounded-full transition ${
-        tipoPago === "efectivo" ? "bg-blue-600 border-blue-600" : "border-gray-400"
+        tipoPago === "efectivo" ? "bg-marca-600 border-marca-600" : "border-gray-400"
       }`}
     >
       {tipoPago === "efectivo" && (
@@ -389,7 +389,7 @@ export default function Buscar() {
                 className={`w-1/2 flex justify-center items-center gap-2 text-white py-2 rounded transition duration-200 ${
                   isSubmitting
                     ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-blue-600 hover:bg-blue-700"
+                    : "bg-marca-600 hover:bg-marca-700"
                 }`}
               >
                 {isSubmitting && (

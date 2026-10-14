@@ -25,6 +25,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import UpdateIcon from "@mui/icons-material/Update";
 import Modals from "../components/utils/Modal";
 import { useNavigate } from "react-router-dom";
+import { urlUploads } from "../config/marca";
 
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 
@@ -110,7 +111,7 @@ const Clientes = () => {
         accessorKey: "idcliente",
         header: "Acciones",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
         Cell: ({ cell }) => (
           <Box sx={{ display: "flex", gap: "1rem" }}>
@@ -131,40 +132,40 @@ const Clientes = () => {
         accessorKey: "nombreyapellido",
         header: "Cliente",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
       },
       {
         accessorKey: "direccion", //normal accessorKey
         header: "Dirección",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
       },
       {
         accessorKey: "celular",
         header: "Celular",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
       },
       {
         accessorKey: "nombrecobrador",
         header: "Cobrador Asignado",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
       },
       {
         accessorKey: "foto",
         header: "Foto",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
         Cell: ({ row }) => {
           const filename = row.original.foto;
           const imageUrl = filename
-            ? `https://app.cplanet.com.ar/api/uploads/${filename}`
+            ? `${urlUploads}${filename}`
             : null;
 
           return imageUrl ? (
@@ -283,7 +284,7 @@ const coincidencias = clientes.filter((c) => {
       <div style="max-height:300px; overflow-y:auto;">
         <table style="width:100%; border-collapse:collapse; margin-top:10px;">
           <thead>
-            <tr style="background-color:#922b3e; color:white; text-align:left;">
+            <tr style="background-color:var(--color-primario); color:white; text-align:left;">
               <th style="padding:6px;">Cliente</th>
               <th style="padding:6px;">Dirección</th>
               <th style="padding:6px;">Celular</th>
@@ -588,9 +589,9 @@ const coincidencias = clientes.filter((c) => {
                     px: 4,
                     py: 1.5,
                     fontWeight: "bold",
-                    backgroundColor: "#922b3e",
+                    backgroundColor: "var(--color-primario)",
                     "&:hover": {
-                      background: "#d87d8e",
+                      background: "var(--color-primario-claro)",
                       cursor: "pointer",
                     },
                   }}

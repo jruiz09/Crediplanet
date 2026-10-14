@@ -248,7 +248,7 @@ const exportarExcel = () => {
       <div className="flex gap-2 mb-4">
         <button
           onClick={exportarExcel}
-          className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700"
+          className="flex items-center gap-2 bg-marca-600 text-white px-4 py-2 rounded shadow hover:bg-marca-700"
         >
           <FileDown size={18} />
           Exportar Excel
@@ -270,7 +270,7 @@ const exportarExcel = () => {
     </div>
     
     {/* Cliente destacado */}
-    <div className="text-xs font-semibold text-blue-600">
+    <div className="text-xs font-semibold text-marca-600">
       Cliente: {n.cliente}
     </div>
 

@@ -91,7 +91,7 @@ const PagoCobradores = () => {
             accessorKey: "estimado",
             header: "Pagar",
             muiTableHeadCellProps: {
-              sx: { backgroundColor: "#922b3e", color: "white" },
+              sx: { backgroundColor: "var(--color-primario)", color: "white" },
             },
             Cell: ({ cell }) => (<>
   {cell.row.original.estimado > 0 ? (<>
@@ -115,7 +115,7 @@ const PagoCobradores = () => {
             accessorKey: "estimado", //normal accessorKey
             header: "Estimado",
             muiTableHeadCellProps: {
-              sx: { backgroundColor: "#922b3e", color: "white" },
+              sx: { backgroundColor: "var(--color-primario)", color: "white" },
               
             },
             Cell: ({ row }) => <div>{formatearNumero(row.original.estimado)}</div>,
@@ -124,7 +124,7 @@ const PagoCobradores = () => {
             accessorKey: "real",
             header: "Real",
             muiTableHeadCellProps: {
-              sx: { backgroundColor: "#922b3e", color: "white" },
+              sx: { backgroundColor: "var(--color-primario)", color: "white" },
             },
             Cell: ({ row }) => <div>{formatearNumero(row.original.real)}</div>,
           },
@@ -132,7 +132,7 @@ const PagoCobradores = () => {
             accessorKey: "Productividad",
             header: "Productividad",
             muiTableHeadCellProps: {
-              sx: { backgroundColor: "#922b3e", color: "white" },
+              sx: { backgroundColor: "var(--color-primario)", color: "white" },
             },
            /* Cell: ({ cell }) => (
               

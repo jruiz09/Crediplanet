@@ -56,7 +56,7 @@ const Productividad = () => {
             accessorKey: "cobrador",
             header: "Cobrador",
             muiTableHeadCellProps: {
-              sx: { backgroundColor: "#922b3e", color: "white" },
+              sx: { backgroundColor: "var(--color-primario)", color: "white" },
             },
           },
           
@@ -64,21 +64,21 @@ const Productividad = () => {
             accessorKey: "Estimado", //normal accessorKey
             header: "Estimado",
             muiTableHeadCellProps: {
-              sx: { backgroundColor: "#922b3e", color: "white" },
+              sx: { backgroundColor: "var(--color-primario)", color: "white" },
             },
           },
           {
             accessorKey: "Real",
             header: "real",
             muiTableHeadCellProps: {
-              sx: { backgroundColor: "#922b3e", color: "white" },
+              sx: { backgroundColor: "var(--color-primario)", color: "white" },
             },
           },
           {
             accessorKey: "Productividad",
             header: "Productividad",
             muiTableHeadCellProps: {
-              sx: { backgroundColor: "#922b3e", color: "white" },
+              sx: { backgroundColor: "var(--color-primario)", color: "white" },
             },
             Cell: ({ cell }) => (
                 <Box

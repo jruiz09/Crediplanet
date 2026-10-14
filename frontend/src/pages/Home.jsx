@@ -185,7 +185,7 @@ const Home = () => {
                   }}
                 />
               }
-              color="#922b3e"
+              color="var(--color-primario)"
               path="Clientes"
               tooltip="Clientes"
             />
@@ -205,7 +205,7 @@ const Home = () => {
                   }}
                 />
               }
-              color="#922b3e"
+              color="var(--color-primario)"
               path="Cobradores"
               tooltip="Cobradores"
             />
@@ -225,7 +225,7 @@ const Home = () => {
                   }}
                 />
               }
-              color="#922b3e"
+              color="var(--color-primario)"
               path="Creditos"
               tooltip="Créditos"
             />
@@ -245,7 +245,7 @@ const Home = () => {
                   }}
                 />
               }
-              color="#922b3e"
+              color="var(--color-primario)"
               path="Rendicion"
               tooltip="Rendicion"
             />
@@ -265,7 +265,7 @@ const Home = () => {
                   }}
                 />
               }
-              color="#922b3e"
+              color="var(--color-primario)"
               path="Caja"
               tooltip="Caja"
             />
@@ -285,7 +285,7 @@ const Home = () => {
                   }}
                 />
               }
-              color="#922b3e"
+              color="var(--color-primario)"
               path="Productividad"
               tooltip="Productividad"
             />
@@ -305,7 +305,7 @@ const Home = () => {
                   }}
                 />
               }
-              color="#922b3e"
+              color="var(--color-primario)"
               path="Vale"
               tooltip="Vale"
             />
@@ -325,7 +325,7 @@ const Home = () => {
                   }}
                 />
               }
-              color="#922b3e"
+              color="var(--color-primario)"
               path="PagoCobradores"
               tooltip="Pago Cobradores"
             />
@@ -345,7 +345,7 @@ const Home = () => {
                   }}
                 />
               }
-              color="#922b3e"
+              color="var(--color-primario)"
               path="ClientesMorosos"
               tooltip="Clientes Morosos"
             />
@@ -365,7 +365,7 @@ const Home = () => {
                   }}
                 />
               }
-              color="#922b3e"
+              color="var(--color-primario)"
               path="Gastos"
               tooltip="Gastos"
             />

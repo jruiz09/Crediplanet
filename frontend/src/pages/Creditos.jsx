@@ -129,7 +129,7 @@ const Creditos = () => {
   const columns = useMemo(() => [
     {
       header: "Acciones",
-      muiTableHeadCellProps: { sx: { backgroundColor: "#922b3e", color: "white" } },
+      muiTableHeadCellProps: { sx: { backgroundColor: "var(--color-primario)", color: "white" } },
       Cell: ({ cell }) => (
         <Box sx={{ display: "flex", gap: "0.5rem" }}>
           <Tooltip title="Detalle crédito">
@@ -145,9 +145,9 @@ const Creditos = () => {
         </Box>
       ),
     },
-    { accessorKey: "idcredito", header: "N° Crédito" ,muiTableHeadCellProps: { sx: { backgroundColor: "#922b3e", color: "white" } }},
-    { accessorKey: "fechainicio", header: "Fecha Inicio",muiTableHeadCellProps: { sx: { backgroundColor: "#922b3e", color: "white" } }, Cell: ({ row }) => dayjs(row.original.fechainicio).format("DD/MM/YYYY") },
-    { accessorKey: "estado", header: "Estado",muiTableHeadCellProps: { sx: { backgroundColor: "#922b3e", color: "white" } }, 
+    { accessorKey: "idcredito", header: "N° Crédito" ,muiTableHeadCellProps: { sx: { backgroundColor: "var(--color-primario)", color: "white" } }},
+    { accessorKey: "fechainicio", header: "Fecha Inicio",muiTableHeadCellProps: { sx: { backgroundColor: "var(--color-primario)", color: "white" } }, Cell: ({ row }) => dayjs(row.original.fechainicio).format("DD/MM/YYYY") },
+    { accessorKey: "estado", header: "Estado",muiTableHeadCellProps: { sx: { backgroundColor: "var(--color-primario)", color: "white" } }, 
             Cell: ({ cell }) => (
               <Box
                 component="span"
@@ -167,13 +167,13 @@ const Creditos = () => {
                 {cell.getValue()}
               </Box>
             ), },
-    { accessorKey: "cliente", header: "Cliente",muiTableHeadCellProps: { sx: { backgroundColor: "#922b3e", color: "white" } } },
-    { accessorKey: "cobrador", header: "Cobrador",muiTableHeadCellProps: { sx: { backgroundColor: "#922b3e", color: "white" } } },
-    { accessorKey: "dias", header: "Plan días",muiTableHeadCellProps: { sx: { backgroundColor: "#922b3e", color: "white" } } },
-    { accessorKey: "monto", header: "Monto crédito",muiTableHeadCellProps: { sx: { backgroundColor: "#922b3e", color: "white" } }, Cell: ({ row }) => `$${row.original.monto}` },
-    { accessorKey: "interes", header: "Interés",muiTableHeadCellProps: { sx: { backgroundColor: "#922b3e", color: "white" } }, Cell: ({ row }) => `${row.original.interes}%` },
-    { accessorKey: "montototal", header: "Monto total",muiTableHeadCellProps: { sx: { backgroundColor: "#922b3e", color: "white" } }, Cell: ({ row }) => `$${row.original.montototal}` },
-    { accessorKey: "tipotransaccion", header: "Tipo Transacción" ,muiTableHeadCellProps: { sx: { backgroundColor: "#922b3e", color: "white" } }},
+    { accessorKey: "cliente", header: "Cliente",muiTableHeadCellProps: { sx: { backgroundColor: "var(--color-primario)", color: "white" } } },
+    { accessorKey: "cobrador", header: "Cobrador",muiTableHeadCellProps: { sx: { backgroundColor: "var(--color-primario)", color: "white" } } },
+    { accessorKey: "dias", header: "Plan días",muiTableHeadCellProps: { sx: { backgroundColor: "var(--color-primario)", color: "white" } } },
+    { accessorKey: "monto", header: "Monto crédito",muiTableHeadCellProps: { sx: { backgroundColor: "var(--color-primario)", color: "white" } }, Cell: ({ row }) => `$${row.original.monto}` },
+    { accessorKey: "interes", header: "Interés",muiTableHeadCellProps: { sx: { backgroundColor: "var(--color-primario)", color: "white" } }, Cell: ({ row }) => `${row.original.interes}%` },
+    { accessorKey: "montototal", header: "Monto total",muiTableHeadCellProps: { sx: { backgroundColor: "var(--color-primario)", color: "white" } }, Cell: ({ row }) => `$${row.original.montototal}` },
+    { accessorKey: "tipotransaccion", header: "Tipo Transacción" ,muiTableHeadCellProps: { sx: { backgroundColor: "var(--color-primario)", color: "white" } }},
   ], [AccionEliminar]);
 
 
@@ -397,9 +397,9 @@ const Creditos = () => {
                     color: "white",
                     m: 1,
                     p: 1,
-                    backgroundColor: "#922b3e",
+                    backgroundColor: "var(--color-primario)",
                     "&:hover": {
-                      background: "#d87d8e",
+                      background: "var(--color-primario-claro)",
                       cursor: "pointer",
                     },
                   }}

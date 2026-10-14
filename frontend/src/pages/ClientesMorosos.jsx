@@ -112,7 +112,7 @@ const ClientesMorosos = () => {
         header: "Cant Cuotas",
         size: 150,
         muiTableHeadCellProps: {
-            sx: { backgroundColor: "#922b3e", color: "white" },
+            sx: { backgroundColor: "var(--color-primario)", color: "white" },
           },
       },
       {
@@ -120,7 +120,7 @@ const ClientesMorosos = () => {
         header: "Pagas",
         size: 150,
         muiTableHeadCellProps: {
-            sx: { backgroundColor: "#922b3e", color: "white" },
+            sx: { backgroundColor: "var(--color-primario)", color: "white" },
           },
       },
       {
@@ -128,7 +128,7 @@ const ClientesMorosos = () => {
         header: "Pendientes",
         size: 10,
         muiTableHeadCellProps: {
-            sx: { backgroundColor: "#922b3e", color: "white" },
+            sx: { backgroundColor: "var(--color-primario)", color: "white" },
           },
       },
       {
@@ -136,7 +136,7 @@ const ClientesMorosos = () => {
         header: "Cuotas Extra",
         size: 10,
         muiTableHeadCellProps: {
-            sx: { backgroundColor: "#922b3e", color: "white" },
+            sx: { backgroundColor: "var(--color-primario)", color: "white" },
           },
       },
       {
@@ -144,7 +144,7 @@ const ClientesMorosos = () => {
         header: "Monto Total",
         size: 10,
         muiTableHeadCellProps: {
-            sx: { backgroundColor: "#922b3e", color: "white" },
+            sx: { backgroundColor: "var(--color-primario)", color: "white" },
           },
         Cell: ({ row }) => <div>${formatearNumero(row.original.monto)}</div>,
       },
@@ -153,7 +153,7 @@ const ClientesMorosos = () => {
         header: "Parcial Pago",
         size: 10,
         muiTableHeadCellProps: {
-            sx: { backgroundColor: "#922b3e", color: "white" },
+            sx: { backgroundColor: "var(--color-primario)", color: "white" },
           },
         Cell: ({ row }) => <div>${formatearNumero(row.original.montopago)}</div>,
       },
@@ -167,7 +167,7 @@ const ClientesMorosos = () => {
             header: "Acciones",
             size: 150,
             muiTableHeadCellProps: {
-                sx: { backgroundColor: "#922b3e", color: "white" },
+                sx: { backgroundColor: "var(--color-primario)", color: "white" },
               },
               Cell: ({ cell }) => (
               
@@ -196,7 +196,7 @@ const ClientesMorosos = () => {
         header: "Cliente",
         size: 150,
         muiTableHeadCellProps: {
-            sx: { backgroundColor: "#922b3e", color: "white" },
+            sx: { backgroundColor: "var(--color-primario)", color: "white" },
           },
       },
       {
@@ -204,7 +204,7 @@ const ClientesMorosos = () => {
         header: "N° Crédito",
         size: 150,
         muiTableHeadCellProps: {
-            sx: { backgroundColor: "#922b3e", color: "white" },
+            sx: { backgroundColor: "var(--color-primario)", color: "white" },
           },
       },
       {
@@ -212,7 +212,7 @@ const ClientesMorosos = () => {
         header: "Cuotas",
         size: 10,
         muiTableHeadCellProps: {
-            sx: { backgroundColor: "#922b3e", color: "white" },
+            sx: { backgroundColor: "var(--color-primario)", color: "white" },
           },
       },
       
@@ -221,7 +221,7 @@ const ClientesMorosos = () => {
         header: "Deuda",
         size: 10,
         muiTableHeadCellProps: {
-            sx: { backgroundColor: "#922b3e", color: "white" },
+            sx: { backgroundColor: "var(--color-primario)", color: "white" },
           },
         Cell: ({ row }) => <div>${formatearNumero(row.original.monto)}</div>,
       },

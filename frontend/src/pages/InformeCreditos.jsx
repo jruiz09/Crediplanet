@@ -23,6 +23,7 @@ import {
   LineElement,
 } from "chart.js";
 import { Line, Bar } from "react-chartjs-2";
+import { marca } from "../config/marca";
 import Modals from '../components/utils/Modal';
 import { MaterialReactTable } from "material-react-table";
 
@@ -96,7 +97,7 @@ const InformeCreditos = () => {
         header: "Credito",
         size: 150,
         muiTableHeadCellProps: {
-            sx: { backgroundColor: "#922b3e", color: "white" },
+            sx: { backgroundColor: "var(--color-primario)", color: "white" },
           },
       },
    
@@ -105,7 +106,7 @@ const InformeCreditos = () => {
         header: "Cliente",
         size: 10,
         muiTableHeadCellProps: {
-            sx: { backgroundColor: "#922b3e", color: "white" },
+            sx: { backgroundColor: "var(--color-primario)", color: "white" },
           },
       },
       {
@@ -113,7 +114,7 @@ const InformeCreditos = () => {
         header: "Cobrador",
         size: 10,
         muiTableHeadCellProps: {
-            sx: { backgroundColor: "#922b3e", color: "white" },
+            sx: { backgroundColor: "var(--color-primario)", color: "white" },
           },
       },
       {
@@ -121,7 +122,7 @@ const InformeCreditos = () => {
         header: "Cant. Cuotas",
         size: 10,
         muiTableHeadCellProps: {
-            sx: { backgroundColor: "#922b3e", color: "white" },
+            sx: { backgroundColor: "var(--color-primario)", color: "white" },
           },
       },
       {
@@ -129,7 +130,7 @@ const InformeCreditos = () => {
         header: "Inversión",
         size: 10,
         muiTableHeadCellProps: {
-            sx: { backgroundColor: "#922b3e", color: "white" },
+            sx: { backgroundColor: "var(--color-primario)", color: "white" },
           },
         Cell: ({ row }) => <div>${formatearNumero(row.original.monto)}</div>,
       },
@@ -138,7 +139,7 @@ const InformeCreditos = () => {
         header: "Ganancia Bruta",
         size: 10,
         muiTableHeadCellProps: {
-            sx: { backgroundColor: "#922b3e", color: "white" },
+            sx: { backgroundColor: "var(--color-primario)", color: "white" },
           },
         Cell: ({ row }) => <div>${formatearNumero(row.original.montototal)}</div>,
       }
@@ -169,13 +170,13 @@ const InformeCreditos = () => {
           {
             label: "Inversión",
             data: creditoscerrados.map((data) => data.importecredito),
-            backgroundColor: "#a11c55",
+            backgroundColor: marca.colores.acento,
             borderColor: "#fafbfd",
           },
           {
             label: "Ganancia Neta",
             data: creditoscerrados.map((data) => data.ganancia),
-            backgroundColor: "#c5899a",
+            backgroundColor: marca.colores.suave,
             borderColor: "#fafbfd",
           },
         ],
@@ -188,8 +189,8 @@ const InformeCreditos = () => {
           {
             label: "Cantidad créditos finalizados por mes",
             data: creditoscerrados.map((data) => data.cantidad),
-            backgroundColor: "#922b3e",
-            borderColor: "#922b3e",
+            backgroundColor: marca.colores.primario,
+            borderColor: marca.colores.primario,
           },
         ],
       };
@@ -219,12 +220,12 @@ const InformeCreditos = () => {
       >
         <Typography
           variant="h5"
-          color="#922b3e"
+          color="var(--color-primario)"
           fon
           pb={1}
           mb={2}
           style={{
-            color: "#922b3e",
+            color: "var(--color-primario)",
             padding: "10px",
             borderRadius: "10px",
           }}
@@ -325,12 +326,12 @@ const InformeCreditos = () => {
       >
         <Typography
           variant="h5"
-          color="#922b3e"
+          color="var(--color-primario)"
           fon
           pb={1}
           mb={2}
           style={{
-            color: "#922b3e",
+            color: "var(--color-primario)",
             padding: "10px",
             borderRadius: "10px",
           }}
@@ -361,12 +362,12 @@ const InformeCreditos = () => {
       >
         <Typography
           variant="h5"
-          color="#922b3e"
+          color="var(--color-primario)"
           fon
           pb={1}
           mb={2}
           style={{
-            color: "#922b3e",
+            color: "var(--color-primario)",
             padding: "10px",
             borderRadius: "10px",
           }}

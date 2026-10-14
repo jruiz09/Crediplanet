@@ -27,7 +27,7 @@ export default function Modals({ modalabrir, titulo, contenido, botones }) {
             pb={1}
             mb={2}
             style={{
-              backgroundColor: "#922b3e",
+              backgroundColor: "var(--color-primario)",
               padding: "20px",
               borderRadius: "10px",
             }}

@@ -168,7 +168,7 @@ const Rendicion = () => {
             accessorKey: "idcreditodetalle",
             header: "Pagar",
             muiTableHeadCellProps: {
-              sx: { backgroundColor: "#922b3e", color: "white" },
+              sx: { backgroundColor: "var(--color-primario)", color: "white" },
             },
             Cell: ({ cell }) => (<>
               
@@ -194,7 +194,7 @@ const Rendicion = () => {
         accessorKey: "idcredito",
         header: "Credito",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
       },
       
@@ -202,28 +202,28 @@ const Rendicion = () => {
         accessorKey: "cuota", //normal accessorKey
         header: "Cuota",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
       },
       {
         accessorKey: "estado",
         header: "Estado Cuota",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
       },
       {
         accessorKey: "cliente",
         header: "Cliente",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
       },
       {
         accessorKey: "monto",
         header: "Monto",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
         Cell: ({ row }) => <div>{formatearNumero(row.original.monto)}</div>,
       },
@@ -231,7 +231,7 @@ const Rendicion = () => {
         accessorKey: "montopago",
         header: "Monto Pago",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
         Cell: ({ row }) => <div>{formatearNumero(row.original.montopago)}</div>,
       },
@@ -246,7 +246,7 @@ const Rendicion = () => {
         accessorKey: "idcreditodetalle",
         header: "Pagar",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
         Cell: ({ cell }) => (
           <>
@@ -285,14 +285,14 @@ const Rendicion = () => {
         accessorKey: "cuota",
         header: "Cuota",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
       },
       {
         accessorKey: "estado",
         header: "Estado",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
         Cell: ({ cell }) => (
           <Box
@@ -318,7 +318,7 @@ const Rendicion = () => {
         accessorKey: "fechapago", //normal accessorKey
         header: "Fecha de pago",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
         Cell: ({ row }) => <div>{formatearFecha(row.original.fechapago)}</div>,
       },
@@ -326,7 +326,7 @@ const Rendicion = () => {
         accessorKey: "monto",
         header: "Monto Cuota",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
         Cell: ({ row }) => <div>{formatearNumero(row.original.monto)}</div>,
       },
@@ -334,7 +334,7 @@ const Rendicion = () => {
         accessorKey: "montopago",
         header: "Monto Pago",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
         Cell: ({ row }) => <div>{formatearNumero(row.original.montopago)}</div>,
       },
@@ -343,7 +343,7 @@ const Rendicion = () => {
         accessorKey: "observaciones",
         header: "Observaciones",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
       },
 
@@ -351,7 +351,7 @@ const Rendicion = () => {
         accessorKey: "tipotransaccion",
         header: "Tipo Transac.",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
       },
     ],

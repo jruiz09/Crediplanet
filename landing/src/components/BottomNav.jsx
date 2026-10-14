@@ -9,7 +9,7 @@ export default function BottomNav() {
         end
         className={({ isActive }) =>
           `flex flex-col items-center text-sm ${
-            isActive ? "text-blue-600 font-semibold" : "text-gray-600"
+            isActive ? "text-marca-600 font-semibold" : "text-gray-600"
           }`
         }
       >
@@ -21,7 +21,7 @@ export default function BottomNav() {
         end
         className={({ isActive }) =>
           `flex flex-col items-center text-sm ${
-            isActive ? "text-blue-600 font-semibold" : "text-gray-600"
+            isActive ? "text-marca-600 font-semibold" : "text-gray-600"
           }`
         }
       >
@@ -33,7 +33,7 @@ export default function BottomNav() {
         to="/cuotas"
         className={({ isActive }) =>
           `flex flex-col items-center text-sm ${
-            isActive ? "text-blue-600 font-semibold" : "text-gray-600"
+            isActive ? "text-marca-600 font-semibold" : "text-gray-600"
           }`
         }
       >
@@ -45,7 +45,7 @@ export default function BottomNav() {
         to="/buscar"
         className={({ isActive }) =>
           `flex flex-col items-center text-sm ${
-            isActive ? "text-blue-600 font-semibold" : "text-gray-600"
+            isActive ? "text-marca-600 font-semibold" : "text-gray-600"
           }`
         }
       >

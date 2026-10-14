@@ -50,7 +50,7 @@ const Cobradores = () => {
         accessorKey: "idcobrador",
         header: "Acciones",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
         Cell: ({ cell }) => (
           <Box sx={{ display: "flex", gap: "1rem" }}>
@@ -71,21 +71,21 @@ const Cobradores = () => {
         accessorKey: "nombreyapellido",
         header: "Cobrador",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
       },
       {
         accessorKey: "dni", //normal accessorKey
         header: "DNI",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
       },
       {
         accessorKey: "celular",
         header: "Celular",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
       },
     ],
@@ -333,9 +333,9 @@ const EjecutarDelete = async (idCobrador) => {
                   color: "white",
                   m: 1,
                   p: 1,
-                  backgroundColor: "#922b3e",
+                  backgroundColor: "var(--color-primario)",
                   "&:hover": {
-                    background: "#d87d8e",
+                    background: "var(--color-primario-claro)",
                     cursor: "pointer",
                   },
                 }}

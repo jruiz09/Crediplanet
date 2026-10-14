@@ -1,6 +1,8 @@
+import { urlAPI } from "../config/marca";
+
+// La URL se configura con VITE_API_URL (ver .env.<marca>)
 var api = {
-    //urlAPI: "http://localhost:8081/api/"
-    urlAPI: "https://app.cplanet.com.ar/api/api/"
- }
- 
- export default api
+    urlAPI
+}
+
+export default api

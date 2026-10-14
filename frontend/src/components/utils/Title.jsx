@@ -8,7 +8,7 @@ function Title(props) {
     display="flex"    
     alignItems="center"
     justifyContent="center"
-    component="h2" variant="h5" color="#922b3e" gutterBottom>
+    component="h2" variant="h5" color="var(--color-primario)" gutterBottom>
       {props.children}
     </Typography>
   );

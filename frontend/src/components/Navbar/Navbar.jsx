@@ -21,6 +21,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import { Box } from "@mui/system";
 import { Link, useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
+import { marca, urlSocket } from "../../config/marca";
 
 // 📢 Alerta personalizada para Snackbar
 const Alert = React.forwardRef(function Alert(props, ref) {
@@ -39,7 +40,7 @@ export default function Navbar({ navegationLinks, children }) {
 
   useEffect(() => {
     if (!socketRef.current) {
-      socketRef.current = io("https://app.cplanet.com.ar", {
+      socketRef.current = io(urlSocket, {
         path: "/api/socket.io",
         transports: ["websocket"],
       });
@@ -94,7 +95,7 @@ export default function Navbar({ navegationLinks, children }) {
 
   return (
     <>
-      <AppBar position="static" sx={{ backgroundColor: "#8C012B", color: "background.default" }}>
+      <AppBar position="static" sx={{ backgroundColor: "var(--color-primario-oscuro)", color: "background.default" }}>
         <Toolbar>
           <IconButton color="inherit" size="large" onClick={() => setOpen(true)}>
             <MenuIcon />
@@ -105,7 +106,7 @@ export default function Navbar({ navegationLinks, children }) {
           </IconButton>
 
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
-            Credi-Planet | V 3.0.0
+            {marca.nombre} | V 3.0.0
           </Typography>
 
           <IconButton color="inherit" onClick={handleOpenNotif}>

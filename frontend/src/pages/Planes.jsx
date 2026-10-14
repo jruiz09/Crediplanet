@@ -50,7 +50,7 @@ const Planes = () => {
         accessorKey: "idplan",
         header: "Acciones",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
         Cell: ({ cell }) => (
           <Box sx={{ display: "flex", gap: "1rem" }}>
@@ -71,14 +71,14 @@ const Planes = () => {
         accessorKey: "descripcion",
         header: "Descripcion",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
       },
       {
         accessorKey: "dias", //normal accessorKey
         header: "Dias",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
       },
     ],
@@ -309,9 +309,9 @@ const EjecutarDelete = async (idPlan) => {
                   color: "white",
                   m: 1,
                   p: 1,
-                  backgroundColor: "#922b3e",
+                  backgroundColor: "var(--color-primario)",
                   "&:hover": {
-                    background: "#d87d8e",
+                    background: "var(--color-primario-claro)",
                     cursor: "pointer",
                   },
                 }}

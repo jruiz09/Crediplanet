@@ -21,6 +21,7 @@ import { Line, Bar } from "react-chartjs-2";
 import Modals from '../components/utils/Modal';
 import { MaterialReactTable } from "material-react-table";
 import { getGastosResumen } from "../services/Gastos";
+import { marca } from "../config/marca";
 
 const data_inicio_bar = {
   labels: ["Sin resultados"],
@@ -61,7 +62,7 @@ const InformeGastos = () => {
               {
                 label: "Total Gastos",
                 data: gastosData.data.map((data) => data.importe),
-                backgroundColor: "#a11c55",
+                backgroundColor: marca.colores.acento,
                 borderColor: "#fafbfd",
               }
             ],
@@ -92,12 +93,12 @@ const InformeGastos = () => {
       >
         <Typography
           variant="h5"
-          color="#922b3e"
+          color="var(--color-primario)"
           fon
           pb={1}
           mb={2}
           style={{
-            color: "#922b3e",
+            color: "var(--color-primario)",
             padding: "10px",
             borderRadius: "10px",
           }}

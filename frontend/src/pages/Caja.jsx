@@ -35,28 +35,28 @@ const Caja = () => {
         accessorKey: "transaccion",
         header: "Transacción",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
       },
       {
         accessorKey: "transacciondocumento", //normal accessorKey
         header: "Documento",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
       },
       {
         accessorKey: "tipo",
         header: "Movimiento",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
       },
       {
         accessorKey: "tipotransaccion",
         header: "Tipo Transac.",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
       },
 
@@ -64,14 +64,14 @@ const Caja = () => {
         accessorKey: "observaciones",
         header: "Observaciones",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
       },
       {
         accessorKey: "monto",
         header: "Monto",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
         Cell: ({ row }) => <div>{formatearNumero(row.original.monto)}</div>,
       },
@@ -80,7 +80,7 @@ const Caja = () => {
         accessorKey: "fechaalta",
         header: "Fecha alta",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
         Cell: ({ row }) => <div>{formatearFecha(row.original.fechaalta)}</div>,
       },
@@ -89,7 +89,7 @@ const Caja = () => {
         accessorKey: "usuarioalta",
         header: "Usuario",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
       },
     ],
@@ -241,9 +241,9 @@ const Caja = () => {
                     color: "white",
                     m: 1,
                     p: 1,
-                    backgroundColor: "#922b3e",
+                    backgroundColor: "var(--color-primario)",
                     "&:hover": {
-                      background: "#d87d8e",
+                      background: "var(--color-primario-claro)",
                       cursor: "pointer",
                     },
                   }}

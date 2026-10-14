@@ -216,7 +216,7 @@ export default function Pendientes() {
                 <span
                   className={`w-5 h-5 flex items-center justify-center border-2 rounded-full transition ${
                     tipoPago === "efectivo"
-                      ? "bg-blue-600 border-blue-600"
+                      ? "bg-marca-600 border-marca-600"
                       : "border-gray-400"
                   }`}
                 >
@@ -353,7 +353,7 @@ export default function Pendientes() {
                 className={`w-1/2 flex justify-center items-center gap-2 text-white py-2 rounded transition duration-200 ${
                   isSubmitting
                     ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-blue-600 hover:bg-blue-700"
+                    : "bg-marca-600 hover:bg-marca-700"
                 }`}
               >
                 {isSubmitting && (

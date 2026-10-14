@@ -167,7 +167,7 @@ const Gastos = () => {
         accessorKey: "idgasto",
         header: "Acciones",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
         Cell: ({ cell }) => (
           <Box sx={{ display: "flex", gap: "1rem" }}>
@@ -188,14 +188,14 @@ const Gastos = () => {
         accessorKey: "descripcion",
         header: "Descripción Gasto",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
       },
       {
         accessorKey: "monto", //normal accessorKey
         header: "Monto",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
       },
     ],

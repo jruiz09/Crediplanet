@@ -77,7 +77,7 @@ export default function Dashboard() {
 
       {loading ? (
         <div className="flex justify-center items-center h-40">
-          <Loader2 className="animate-spin h-8 w-8 text-blue-600" />
+          <Loader2 className="animate-spin h-8 w-8 text-marca-600" />
         </div>
       ) : (
         <>
@@ -85,12 +85,12 @@ export default function Dashboard() {
             <h2 className="text-md font-semibold text-gray-700">
               Cuotas a cobrar hoy
             </h2>
-            <p className="text-3xl font-bold text-blue-600">{totalCuotas}</p>
+            <p className="text-3xl font-bold text-marca-600">{totalCuotas}</p>
           </div>
           <input
             type="text"
             placeholder="🔍 Buscar cliente..."
-            className="w-full p-2 mb-4 border border-gray-300 rounded-full text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-2 mb-4 border border-gray-300 rounded-full text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-marca-500"
             value={busqueda}
             onChange={(e) => setBusqueda(e.target.value.toLowerCase())}
           />
@@ -141,13 +141,13 @@ export default function Dashboard() {
                       <span className="block">
                         Pagado: ${cuota.montopago.toLocaleString()}
                       </span>
-                      <span className="block font-bold text-blue-700">
+                      <span className="block font-bold text-marca-700">
                         Restante: ${montoRestante.toLocaleString()}
                       </span>
                     </div>
 
                     <button
-                      className="mt-3 bg-blue-600 hover:bg-blue-700 text-white text-sm py-2 rounded-full transition"
+                      className="mt-3 bg-marca-600 hover:bg-marca-700 text-white text-sm py-2 rounded-full transition"
                       onClick={() => {
                         setCuotaSeleccionada(cuota);
                         setModalAbierto(true);
@@ -208,7 +208,7 @@ export default function Dashboard() {
                 <span
                   className={`w-5 h-5 flex items-center justify-center border-2 rounded-full transition ${
                     tipoPago === "efectivo"
-                      ? "bg-blue-600 border-blue-600"
+                      ? "bg-marca-600 border-marca-600"
                       : "border-gray-400"
                   }`}
                 >
@@ -345,7 +345,7 @@ export default function Dashboard() {
                 className={`w-1/2 flex justify-center items-center gap-2 text-white py-2 rounded transition duration-200 ${
                   isSubmitting
                     ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-blue-600 hover:bg-blue-700"
+                    : "bg-marca-600 hover:bg-marca-700"
                 }`}
               >
                 {isSubmitting && (

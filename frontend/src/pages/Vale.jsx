@@ -91,7 +91,7 @@ const Vale = () => {
         accessorKey: "idvale",
         header: "Acciones",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
         Cell: ({ cell }) => (
           <Box sx={{ display: "flex", gap: "1rem" }}>
@@ -107,14 +107,14 @@ const Vale = () => {
         accessorKey: "cobrador",
         header: "Cobrador",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
       },
       {
         accessorKey: "egreso", //normal accessorKey
         header: "Egreso",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
         Cell: ({ row }) => <div>${formatearNumero(row.original.egreso)}</div>,
       },
@@ -122,7 +122,7 @@ const Vale = () => {
         accessorKey: "ingreso",
         header: "ingreso",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
         Cell: ({ row }) => <div>${formatearNumero(row.original.ingreso)}</div>,
       },
@@ -130,7 +130,7 @@ const Vale = () => {
         accessorKey: "estado",
         header: "Estado",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
         Cell: ({ cell }) => (
           <Box
@@ -156,7 +156,7 @@ const Vale = () => {
         accessorKey: "observaciones",
         header: "Observaciones",
         muiTableHeadCellProps: {
-          sx: { backgroundColor: "#922b3e", color: "white" },
+          sx: { backgroundColor: "var(--color-primario)", color: "white" },
         },
       },
     ],
@@ -350,9 +350,9 @@ const EjecutarPut = async () => {
                     color: "white",
                     m: 1,
                     p: 1,
-                    backgroundColor: "#922b3e",
+                    backgroundColor: "var(--color-primario)",
                     "&:hover": {
-                      background: "#d87d8e",
+                      background: "var(--color-primario-claro)",
                       cursor: "pointer",
                     },
                   }}

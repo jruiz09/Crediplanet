@@ -16,12 +16,12 @@ export default function BoxGeneral({children, texto}) {
         <Box sx={styleBox}>
         <Typography
           variant= "h4"
-          color = "#922b3e"
+          color = "var(--color-primario)"
           fon
           pb={1}
           mb={2}
           style={{
-            color : "#922b3e", 
+            color : "var(--color-primario)", 
             padding: "10px",
             borderRadius: "10px",
           }}

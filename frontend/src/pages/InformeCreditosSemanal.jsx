@@ -59,7 +59,7 @@ const InformeCreditosSemanal = () => {
         header: "Credito",
         size: 150,
         muiTableHeadCellProps: {
-            sx: { backgroundColor: "#922b3e", color: "white" },
+            sx: { backgroundColor: "var(--color-primario)", color: "white" },
           },
       },
       {
@@ -67,7 +67,7 @@ const InformeCreditosSemanal = () => {
         header: "Cant Cuotas",
         size: 150,
         muiTableHeadCellProps: {
-            sx: { backgroundColor: "#922b3e", color: "white" },
+            sx: { backgroundColor: "var(--color-primario)", color: "white" },
           },
       },
    
@@ -76,7 +76,7 @@ const InformeCreditosSemanal = () => {
         header: "Cliente",
         size: 10,
         muiTableHeadCellProps: {
-            sx: { backgroundColor: "#922b3e", color: "white" },
+            sx: { backgroundColor: "var(--color-primario)", color: "white" },
           },
       },
       {
@@ -84,7 +84,7 @@ const InformeCreditosSemanal = () => {
         header: "Cobrador",
         size: 10,
         muiTableHeadCellProps: {
-            sx: { backgroundColor: "#922b3e", color: "white" },
+            sx: { backgroundColor: "var(--color-primario)", color: "white" },
           },
       },
       {
@@ -92,7 +92,7 @@ const InformeCreditosSemanal = () => {
         header: "Interes",
         size: 10,
         muiTableHeadCellProps: {
-            sx: { backgroundColor: "#922b3e", color: "white" },
+            sx: { backgroundColor: "var(--color-primario)", color: "white" },
           },
         Cell: ({ row }) => <div>{row.original.interes}%</div>,
       },
@@ -101,7 +101,7 @@ const InformeCreditosSemanal = () => {
         header: "Inversión",
         size: 10,
         muiTableHeadCellProps: {
-            sx: { backgroundColor: "#922b3e", color: "white" },
+            sx: { backgroundColor: "var(--color-primario)", color: "white" },
           },
         Cell: ({ row }) => <div>${formatearNumero(row.original.monto)}</div>,
       },
@@ -110,7 +110,7 @@ const InformeCreditosSemanal = () => {
         header: "Ganancia Bruta",
         size: 10,
         muiTableHeadCellProps: {
-            sx: { backgroundColor: "#922b3e", color: "white" },
+            sx: { backgroundColor: "var(--color-primario)", color: "white" },
           },
         Cell: ({ row }) => <div>${formatearNumero(row.original.montototal)}</div>,
       },
@@ -119,7 +119,7 @@ const InformeCreditosSemanal = () => {
         header: "Ganancia Neta",
         size: 10,
         muiTableHeadCellProps: {
-            sx: { backgroundColor: "#922b3e", color: "white" },
+            sx: { backgroundColor: "var(--color-primario)", color: "white" },
           },
         Cell: ({ row }) => <div>${formatearNumero(row.original.ganancia)}</div>,
       },
@@ -146,12 +146,12 @@ const InformeCreditosSemanal = () => {
       >
         <Typography
           variant="h5"
-          color="#922b3e"
+          color="var(--color-primario)"
           fon
           pb={1}
           mb={2}
           style={{
-            color: "#922b3e",
+            color: "var(--color-primario)",
             padding: "10px",
             borderRadius: "10px",
           }}

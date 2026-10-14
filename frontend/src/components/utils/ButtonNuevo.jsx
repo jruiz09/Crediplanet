@@ -9,12 +9,12 @@ const ButtonNuevo = ({Funcion, Texto}) => {
       boxShadow: 4,
       borderRadius: 3,
       background: "white",
-      color: "#922b3e",
+      color: "var(--color-primario)",
       "&:hover": {
         background: "#f1f1f1",
         cursor: "pointer",
         borderBottom: 5,
-        borderBottomColor: "#922b3e",
+        borderBottomColor: "var(--color-primario)",
     
       },
     }}

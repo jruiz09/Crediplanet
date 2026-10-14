@@ -8,6 +8,7 @@ import ReactDOM from 'react-dom/client'
 import { CssBaseline } from '@mui/material'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import App from './App';
+import { aplicarMarca } from './config/marca';
 import UserProvider from "./context/UserProvider"
 import Auth from './Auth/Auth.jsx'
 import NotFound from './pages/NotFound';
@@ -32,6 +33,8 @@ import CambiarContraseña from "./pages/CambiarContraseña";
 import ResumenCliente from "./pages/ResumenCliente.jsx";
 import NotificacionesAdmin from "./pages/NotificacionesAdmin.jsx";
 
+
+aplicarMarca();
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

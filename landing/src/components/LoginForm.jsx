@@ -46,7 +46,7 @@ export default function LoginForm() {
         <input
           type="text"
           placeholder="Usuario"
-          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-marca-500 transition"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
@@ -56,7 +56,7 @@ export default function LoginForm() {
         <input
           type="password"
           placeholder="Contraseña"
-          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-marca-500 transition"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
@@ -64,7 +64,7 @@ export default function LoginForm() {
 
       <button
         type="submit"
-        className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-200"
+        className="w-full bg-marca-600 text-white py-2 rounded-lg hover:bg-marca-700 transition duration-200"
       >
         Ingresar
       </button>

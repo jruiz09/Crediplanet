@@ -207,7 +207,7 @@ const EjecutarDelete = async (IDDIA) => {
                 accessorKey: "idnolaborales",
                 header: "Acciones",
                 muiTableHeadCellProps: {
-                  sx: { backgroundColor: "#922b3e", color: "white" },
+                  sx: { backgroundColor: "var(--color-primario)", color: "white" },
                 },
                 Cell: ({ cell }) => (
                   <Box sx={{ display: "flex", gap: "1rem" }}>
@@ -228,7 +228,7 @@ const EjecutarDelete = async (IDDIA) => {
             accessorKey: "fecha",
             header: "Fecha",
             muiTableHeadCellProps: {
-              sx: { backgroundColor: "#922b3e", color: "white" },
+              sx: { backgroundColor: "var(--color-primario)", color: "white" },
             },
             Cell: ({ row }) => <div>{formatearFecha(row.original.fecha)}</div>,
           },
@@ -236,7 +236,7 @@ const EjecutarDelete = async (IDDIA) => {
             accessorKey: "motivo", //normal accessorKey
             header: "Motivo",
             muiTableHeadCellProps: {
-              sx: { backgroundColor: "#922b3e", color: "white" },
+              sx: { backgroundColor: "var(--color-primario)", color: "white" },
             },
           },
         ],
