@@ -27,6 +27,7 @@ db.role = require("../models/role.js")(sequelize, Sequelize);
 db.Empresa = require("../models/empresa.model.js")(sequelize, Sequelize);
 db.Cliente = require("../models/cliente.model.js")(sequelize, Sequelize);
 db.Cobrador = require("../models/cobrador.model.js")(sequelize, Sequelize);
+db.Pantalla = require("../models/pantalla.model.js")(sequelize, Sequelize);
 db.Plan = require("../models/plan.model.js")(sequelize, Sequelize);
 db.Credito = require("../models/credito.model.js")(sequelize, Sequelize);
 db.CreditoDetalle = require("../models/creditodetalle.model.js")(sequelize, Sequelize);
@@ -53,6 +54,19 @@ db.role.belongsToMany(db.user, {
 db.user.belongsToMany(db.role, {
   through: "user_roles"
 });
+
+db.role.belongsToMany(db.Pantalla, {
+  through: "rol_pantalla",
+  foreignKey: "idrol",
+  otherKey: "idpantalla"
+});
+db.Pantalla.belongsToMany(db.role, {
+  through: "rol_pantalla",
+  foreignKey: "idpantalla",
+  otherKey: "idrol"
+});
+
+db.user.belongsTo(db.Cobrador, { foreignKey: "idcobrador" });
 
 db.ROLES = ["user", "admin", "supervisor"];
 

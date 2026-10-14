@@ -65,6 +65,9 @@ require("./routes/pagocobradores.routes")(app);
 require("./routes/nolaborales.routes")(app);
 require("./routes/gasto.routes")(app);
 require("./routes/notificacion.routes")(app);
+require("./routes/pantalla.routes")(app);
+require("./routes/rol.routes")(app);
+require("./routes/permisos.routes")(app);
 
 // Ruta simple para test
 app.get("/", (req, res) => {

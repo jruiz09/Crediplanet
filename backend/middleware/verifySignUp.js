@@ -47,9 +47,15 @@ checkRolesExisted = (req, res, next) => {
         });
         return;
       }
+      if (req.body.roles[i] === "admin") {
+        res.status(403).send({
+          message: "Error: El rol admin no puede autoasignarse en el registro"
+        });
+        return;
+      }
     }
   }
-  
+
   next();
 };
 

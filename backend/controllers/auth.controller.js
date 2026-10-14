@@ -11,44 +11,33 @@ const bcrypt = require("bcryptjs");
 
 exports.CambiarContrase = async (req, res) => {
 
-  
-  const ExisteUsuario = await User.findOne({
-    where: { username: req.body.username },
-  });
+  const usuario = await User.findByPk(req.userId);
 
-  if (ExisteUsuario)
-  {
-    
+  if (!usuario) {
+    return res.status(404).send({ message: "Usuario no encontrado." });
+  }
+
   try {
-    
+
     const body = {
       password: bcrypt.hashSync(req.body.password, 8)
     }
 
-    User.update(body, {
-      where : {username: req.body.username}
-  })
- 
-  .then(num => {
-      if (num == 1) {
-        res.status(200).send({
-          message: "Contraseña actualizada correctamente"
-        });
-      } else {
-        res.status(400).send({
-          message: `no se puede actualizar la contraseña usuario=${req.body.username}.`
-        });
-      }
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: "Error: " + err
-      });
+    const [num] = await User.update(body, {
+      where: { id: usuario.id }
     });
-  }
- catch (error) {
-  res.status(500).send({ message: error.message });
-}
+
+    if (num === 1) {
+      res.status(200).send({
+        message: "Contraseña actualizada correctamente"
+      });
+    } else {
+      res.status(400).send({
+        message: `no se puede actualizar la contraseña usuario=${usuario.username}.`
+      });
+    }
+  } catch (error) {
+    res.status(500).send({ message: error.message });
   }
 }
 
@@ -129,6 +118,12 @@ exports.signin = async (req, res) => {
     if (!passwordIsValid) {
       return res.status(401).send({
         message: "Contraseña incorrecta!",
+      });
+    }
+
+    if (!user.activo) {
+      return res.status(403).send({
+        message: "Usuario inactivo. Contacte al administrador.",
       });
     }
 

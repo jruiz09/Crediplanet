@@ -17,8 +17,13 @@ module.exports = (sequelize, Sequelize) => {
       },
       idempresa: {
         type: Sequelize.INTEGER
+      },
+      activo: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: true
       }
-    }, 
+    },
     {
         timestamps: false});
     return Cobrador;

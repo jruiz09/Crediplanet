@@ -38,8 +38,8 @@ export default function Deposits({ texto, imagen, color, path, tooltip }) {
            justifyContent="center"
           sx={{ align: "center", justifyContent: "center", color: { color } }}
           component={Link}
-          to={path}
-          variant="h4"          
+          to={`/${path}`}
+          variant="h4"
         >
           {imagen}
         </Typography>

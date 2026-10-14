@@ -28,6 +28,24 @@ El deploy se corta si a la base de MyM le falta alguna columna o vista que usa
 el código. Las tablas que faltan no lo cortan: `sequelize.sync()` las crea al
 arrancar.
 
+## Roles y Usuarios
+
+Antes de tocar el código, `migrar-roles.js` deja la base como la de
+Crediplanet: columnas `users.activo` y `cobradores.activo`, tablas `pantallas`
+y `rol_pantalla`, roles `user`, `supervisor`, `admin` y `administrativo`, las
+19 pantallas y los permisos de `admin` (todas) y `administrativo` (todas menos
+Informes, Roles, Pantallas y Usuarios). Solo agrega lo que falta y respalda
+antes las tablas de usuarios en `/opt/backups/<fecha>/usuarios.sql`.
+
+Cada usuario ve solo las pantallas de su rol. Si ningún usuario tiene rol
+`admin`, el deploy se corta; para darle admin a alguien:
+
+```bash
+ASIGNAR_ADMIN=<usuario> /opt/deploy-mym.sh
+```
+
+Los demás roles se asignan después desde la pantalla Usuarios.
+
 ## Primera vez (como root)
 
 1. Cortar el servidor de desarrollo que quedó corriendo:
