@@ -1,4 +1,5 @@
 const { authJwt } = require("../middleware");
+const { requierePermiso } = require("../services/permisos.service");
 const controller = require("../controllers/user.controller");
 
 module.exports = function(app) {
@@ -10,11 +11,11 @@ module.exports = function(app) {
     next();
   });
 
-  app.post("/api/usuarios", [authJwt.verifyToken, authJwt.isAdmin], controller.postUsuario);
-  app.get("/api/usuarios", [authJwt.verifyToken, authJwt.isAdmin], controller.getUsuarios);
-  app.get("/api/usuarios/:id", [authJwt.verifyToken, authJwt.isAdmin], controller.getUsuario);
-  app.put("/api/usuarios/:id", [authJwt.verifyToken, authJwt.isAdmin], controller.putUsuario);
-  app.put("/api/usuarios/:id/roles", [authJwt.verifyToken, authJwt.isAdmin], controller.setRolesUsuario);
+  app.post("/api/usuarios", [authJwt.verifyToken, requierePermiso("USUARIOS", "adm")], controller.postUsuario);
+  app.get("/api/usuarios", [authJwt.verifyToken, requierePermiso("USUARIOS", "adm")], controller.getUsuarios);
+  app.get("/api/usuarios/:id", [authJwt.verifyToken, requierePermiso("USUARIOS", "adm")], controller.getUsuario);
+  app.put("/api/usuarios/:id", [authJwt.verifyToken, requierePermiso("USUARIOS", "adm")], controller.putUsuario);
+  app.put("/api/usuarios/:id/roles", [authJwt.verifyToken, requierePermiso("USUARIOS", "adm")], controller.setRolesUsuario);
 
   app.get("/api/test/all", [authJwt.verifyToken], controller.allAccess);
 

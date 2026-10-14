@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 import axios from "axios";
 import { FileDown } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
@@ -108,7 +108,7 @@ const exportarExcel = () => {
     "Monto Pagado": c.montopago,
     Estado: c.estado,
     "Fecha de Pago": c.fechapago
-      ? format(new Date(c.fechapago), "dd/MM/yyyy")
+      ? format(parseISO(c.fechapago), "dd/MM/yyyy")
       : "Sin pago",
   }));
 

@@ -1,4 +1,5 @@
 const { authJwt } = require("../middleware");
+const { requierePermiso } = require("../services/permisos.service");
 const controller = require("../controllers/pantalla.controller");
 
 module.exports = function(app) {
@@ -12,7 +13,7 @@ module.exports = function(app) {
 
   app.get("/api/pantallas", [authJwt.verifyToken], controller.getPantallas);
   app.get("/api/pantallas/:id", [authJwt.verifyToken], controller.getPantalla);
-  app.post("/api/pantallas", [authJwt.verifyToken, authJwt.isAdmin], controller.postPantalla);
-  app.put("/api/pantallas/:id", [authJwt.verifyToken, authJwt.isAdmin], controller.putPantalla);
-  app.delete("/api/pantallas/:id", [authJwt.verifyToken, authJwt.isAdmin], controller.deletePantalla);
+  app.post("/api/pantallas", [authJwt.verifyToken, requierePermiso("PANTALLAS", "adm")], controller.postPantalla);
+  app.put("/api/pantallas/:id", [authJwt.verifyToken, requierePermiso("PANTALLAS", "adm")], controller.putPantalla);
+  app.delete("/api/pantallas/:id", [authJwt.verifyToken, requierePermiso("PANTALLAS", "adm")], controller.deletePantalla);
 };

@@ -81,6 +81,7 @@ exports.putUsuario = async (req, res) => {
     const body = { ...req.body };
     delete body.password;
     delete body.id;
+    delete body.idempresa;
 
     const [num] = await User.update(body, { where: { id } });
 

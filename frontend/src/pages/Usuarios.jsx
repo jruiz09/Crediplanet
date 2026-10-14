@@ -6,6 +6,8 @@ import ButtonNuevo from "../components/utils/ButtonNuevo";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "@sweetalert2/theme-material-ui/material-ui.css";
 import UpdateIcon from '@mui/icons-material/Update';
+import BlockIcon from '@mui/icons-material/Block';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import Modals from "../components/utils/Modal";
 import { getUsuarios, postUsuario, putUsuario, setRolesUsuario } from "../services/Usuarios";
 import { getRoles } from "../services/Roles";
@@ -70,15 +72,28 @@ const Usuarios = () => {
         header: "Acciones",
         muiTableHeadCellProps: { sx: { backgroundColor: "#922b3e", color: "white" } },
         Cell: ({ cell }) => (
-          <Tooltip arrow title="Editar cobrador y roles">
-            <IconButton onClick={() => AccionEditar(cell)}>
-              <UpdateIcon />
-            </IconButton>
-          </Tooltip>
+          <>
+            <Tooltip arrow title="Editar cobrador y roles">
+              <IconButton onClick={() => AccionEditar(cell)}>
+                <UpdateIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip arrow title={cell.row.original.activo ? "Desactivar usuario" : "Activar usuario"}>
+              <IconButton onClick={() => ToggleActivo(cell)}>
+                {cell.row.original.activo ? <BlockIcon color="error" /> : <CheckCircleIcon color="success" />}
+              </IconButton>
+            </Tooltip>
+          </>
         ),
       },
       { accessorKey: "username", header: "Usuario", muiTableHeadCellProps: { sx: { backgroundColor: "#922b3e", color: "white" } } },
       { accessorKey: "email", header: "Email", muiTableHeadCellProps: { sx: { backgroundColor: "#922b3e", color: "white" } } },
+      {
+        accessorKey: "activo",
+        header: "Estado",
+        muiTableHeadCellProps: { sx: { backgroundColor: "#922b3e", color: "white" } },
+        Cell: ({ cell }) => (cell.getValue() ? "Activo" : "Inactivo"),
+      },
       {
         accessorKey: "idcobrador",
         header: "Cobrador vinculado",
@@ -94,6 +109,31 @@ const Usuarios = () => {
     ],
     []
   );
+
+  const ToggleActivo = async (fila) => {
+    const usuario = fila.row.original;
+    const nuevoEstado = !usuario.activo;
+
+    const confirmacion = await Swal.fire({
+      title: nuevoEstado ? "¿Activar usuario?" : "¿Desactivar usuario?",
+      text: nuevoEstado
+        ? "El usuario va a poder volver a iniciar sesión."
+        : "El usuario no va a poder iniciar sesión hasta que lo reactives.",
+      icon: "warning",
+      showDenyButton: true,
+      confirmButtonText: "Sí",
+      denyButtonText: "Cancelar",
+    });
+    if (!confirmacion.isConfirmed) return;
+
+    const resultado = await putUsuario({ activo: nuevoEstado }, usuario.id, token);
+    if (resultado.status === 200) {
+      Swal.fire(nuevoEstado ? "Usuario activado" : "Usuario desactivado", "", "success");
+      fetchUsuarios();
+    } else {
+      Swal.fire("Error: " + (resultado.response?.data?.message || "No se pudo actualizar el usuario"), "", "error");
+    }
+  };
 
   const AccionEditar = (fila) => {
     setIdUsuario(fila.row.original.id);

@@ -12,7 +12,12 @@ module.exports = (sequelize, Sequelize) => {
       password: {
         type: Sequelize.STRING
       },
-      idcobrador: {type: Sequelize.INTEGER}
+      idcobrador: {type: Sequelize.INTEGER},
+      activo: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: true
+      }
     });
     return User;
   };
