@@ -41,6 +41,8 @@ app.use(
 
 // Archivos estáticos (ej: imágenes de uploads)
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+// MyM no tiene proxy de nginx para /uploads: las sirve bajo /api, que si pasa al backend
+app.use("/api/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Base de datos
 const db = require("./models");

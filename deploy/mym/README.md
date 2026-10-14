@@ -11,6 +11,8 @@ publica en las rutas que ya usa nginx:
 | Mobile   | `/opt/mobile/dist` | `npm run build:mym` en `landing`       |
 
 Nunca se tocan `/opt/back/.env`, `/opt/back/uploads` ni `node_modules`.
+Las fotos de clientes se sirven en `https://mymlanus.com.ar/api/uploads/`,
+a través del mismo `location /api/` de nginx que usa la API.
 
 ## Deploy
 
@@ -49,18 +51,7 @@ arrancar.
    APP_NOMBRE=mym
    ```
 
-4. En `/etc/nginx/sites-enabled/mymlanus`, dentro del `server` que escucha
-   `443` para `mymlanus.com.ar`, junto al `location /api/`, agregar:
-
-   ```nginx
-   location /uploads/ {
-       proxy_pass http://localhost:8080/uploads/;
-   }
-   ```
-
-   Y aplicar: `nginx -t && systemctl reload nginx`
-
-5. Probar sin cambiar nada y después deployar:
+4. Probar sin cambiar nada y después deployar:
 
    ```bash
    /opt/deploy-mym.sh --dry-run

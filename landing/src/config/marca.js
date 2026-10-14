@@ -14,7 +14,7 @@ const MARCAS = {
     },
   },
   mym: {
-    nombre: "MyM Mobile",
+    nombre: "M&M Mobile",
     tonos: {
       50: "#fff7ed",
       100: "#ffedd5",

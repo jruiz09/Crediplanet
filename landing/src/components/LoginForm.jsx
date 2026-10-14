@@ -10,12 +10,14 @@ export default function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const apiLogin = api.urlAPI + "auth/signin"
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
 
     try {
       const res = await fetch(apiLogin, {
@@ -31,6 +33,8 @@ export default function LoginForm() {
       navigate("/");
     } catch (err) {
       setError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -64,9 +68,10 @@ export default function LoginForm() {
 
       <button
         type="submit"
-        className="w-full bg-marca-600 text-white py-2 rounded-lg hover:bg-marca-700 transition duration-200"
+        disabled={loading}
+        className="w-full bg-marca-600 text-white py-2 rounded-lg hover:bg-marca-700 transition duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
       >
-        Ingresar
+        {loading ? "Ingresando..." : "Ingresar"}
       </button>
     </form>
   );

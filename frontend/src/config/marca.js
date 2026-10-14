@@ -1,4 +1,7 @@
 // Configuración por negocio. Se elige con VITE_MARCA (ver .env.<marca>).
+import { createTheme } from "@mui/material/styles";
+import { temaMyM } from "./temaMyM";
+
 const MARCAS = {
   crediplanet: {
     nombre: "Credi-Planet",
@@ -11,7 +14,7 @@ const MARCAS = {
     },
   },
   mym: {
-    nombre: "MyM",
+    nombre: "M&M",
     colores: {
       primario: "#c2410c",
       primarioOscuro: "#7c2d12",
@@ -19,10 +22,14 @@ const MARCAS = {
       acento: "#ea580c",
       suave: "#fed7aa",
     },
+    tema: temaMyM,
   },
 };
 
 export const marca = MARCAS[import.meta.env.VITE_MARCA] ?? MARCAS.crediplanet;
+
+// Crediplanet usa el tema por defecto de Material UI
+export const tema = createTheme(marca.tema ? marca.tema(marca.colores) : {});
 
 export const urlAPI =
   import.meta.env.VITE_API_URL ?? "https://app.cplanet.com.ar/api/api/";

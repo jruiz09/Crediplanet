@@ -6,9 +6,10 @@ import "@fontsource/roboto/700.css";
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { CssBaseline } from '@mui/material'
+import { ThemeProvider } from '@mui/material/styles'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import App from './App';
-import { aplicarMarca } from './config/marca';
+import { aplicarMarca, tema } from './config/marca';
 import UserProvider from "./context/UserProvider"
 import Auth from './Auth/Auth.jsx'
 import NotFound from './pages/NotFound';
@@ -38,7 +39,7 @@ aplicarMarca();
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-
+    <ThemeProvider theme={tema}>
       <CssBaseline />
       <BrowserRouter basename={"/"}>
       <Routes>
@@ -76,5 +77,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
       </Routes>
     </BrowserRouter>
+    </ThemeProvider>
   </React.StrictMode>
 )
