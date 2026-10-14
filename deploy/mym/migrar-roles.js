@@ -125,13 +125,17 @@ const PERMISOS = {
     );
   }
 
-  // 4. Roles
-  const rolesExistentes = (await consultar("SELECT name FROM roles")).map((r) => r.name);
+  // 4. Roles. Los nombres se comparan sin distinguir mayúsculas (M&M los tiene
+  // como USER/ADMIN); los que faltan se crean con el mismo estilo de la base.
+  const nombresRoles = (await consultar("SELECT name FROM roles")).map((r) => r.name);
+  const rolesExistentes = nombresRoles.map((n) => n.toLowerCase());
+  const enMayusculas = nombresRoles.length > 0 && nombresRoles.every((n) => n === n.toUpperCase());
   for (const rol of ROLES.filter((r) => !rolesExistentes.includes(r))) {
+    const nombre = enMayusculas ? rol.toUpperCase() : rol;
     await ejecutar(
-      `Rol ${rol}`,
+      `Rol ${nombre}`,
       "INSERT INTO roles (name, createdAt, updatedAt) VALUES (?, NOW(), NOW())",
-      [rol]
+      [nombre]
     );
   }
 
@@ -150,7 +154,7 @@ const PERMISOS = {
 
   const permisosExistentes = (await existeTabla("rol_pantalla"))
     ? (await consultar(
-        "SELECT r.name rol, p.codigo FROM rol_pantalla rp JOIN roles r ON r.id = rp.idrol JOIN pantallas p ON p.id = rp.idpantalla"
+        "SELECT LOWER(r.name) rol, p.codigo FROM rol_pantalla rp JOIN roles r ON r.id = rp.idrol JOIN pantallas p ON p.id = rp.idpantalla"
       )).map((p) => `${p.rol}/${p.codigo}`)
     : [];
   for (const [rol, codigos] of Object.entries(PERMISOS)) {
@@ -160,7 +164,7 @@ const PERMISOS = {
       `Permisos de ${rol}: ${faltantes.length} pantallas`,
       `INSERT IGNORE INTO rol_pantalla (idrol, idpantalla, createdAt, updatedAt)
        SELECT r.id, p.id, NOW(), NOW() FROM roles r JOIN pantallas p
-       WHERE r.name = ? AND p.codigo IN (?)`,
+       WHERE LOWER(r.name) = ? AND p.codigo IN (?)`,
       [rol, faltantes]
     );
   }
@@ -175,7 +179,7 @@ const PERMISOS = {
       await ejecutar(
         `Rol admin para ${ASIGNAR_ADMIN}`,
         `INSERT IGNORE INTO user_roles (roleId, userId, createdAt, updatedAt)
-         SELECT id, ?, NOW(), NOW() FROM roles WHERE name = 'admin'`,
+         SELECT id, ?, NOW(), NOW() FROM roles WHERE LOWER(name) = 'admin'`,
         [usuario.id]
       );
     }
@@ -192,7 +196,7 @@ const PERMISOS = {
   console.log("\nUsuarios y roles:");
   usuarios.forEach((u) => console.log(`  ${u.username}: ${u.roles}`));
 
-  const hayAdmin = usuarios.some((u) => u.roles.split(",").includes("admin"));
+  const hayAdmin = usuarios.some((u) => u.roles.toLowerCase().split(",").includes("admin"));
   const adminPendiente = DRY_RUN && ASIGNAR_ADMIN;
   if (!hayAdmin && !adminPendiente) {
     console.log(
