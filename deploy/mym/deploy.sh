@@ -27,13 +27,17 @@ for comando in git rsync npm node pm2 curl; do
   command -v "$comando" >/dev/null || { echo "Falta '$comando' en el servidor"; exit 1; }
 done
 
-paso "Bajando $RAMA de $REPO_URL"
-if [[ ! -d "$REPO_DIR/.git" ]]; then
-  git clone --branch "$RAMA" "$REPO_URL" "$REPO_DIR"
-else
-  git -C "$REPO_DIR" fetch --quiet origin "$RAMA"
-  git -C "$REPO_DIR" checkout --quiet "$RAMA"
-  git -C "$REPO_DIR" reset --quiet --hard "origin/$RAMA"
+if [[ -z "${DEPLOY_REPO_ACTUALIZADO:-}" ]]; then
+  paso "Bajando $RAMA de $REPO_URL"
+  if [[ ! -d "$REPO_DIR/.git" ]]; then
+    git clone --branch "$RAMA" "$REPO_URL" "$REPO_DIR"
+  else
+    git -C "$REPO_DIR" fetch --quiet origin "$RAMA"
+    git -C "$REPO_DIR" checkout --quiet "$RAMA"
+    git -C "$REPO_DIR" reset --quiet --hard "origin/$RAMA"
+  fi
+  # El pull pudo cambiar este mismo script: se vuelve a lanzar la versión recién bajada
+  DEPLOY_REPO_ACTUALIZADO=1 exec bash "$REPO_DIR/deploy/mym/deploy.sh" "$@"
 fi
 git -C "$REPO_DIR" log --oneline -1
 
