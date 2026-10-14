@@ -17,6 +17,7 @@ module.exports = function(app) {
   app.get("/api/cliente/resumenclienteultimoscreditosdetalles/:idcliente", controller.getResumenClienteUltimosCreditosDetalles);
   app.get("/api/cliente/resumenclienteultimoscreditos/:idcliente", controller.getResumenClienteUltimosCreditos);
   app.get("/api/cliente/refinanciado/:idcliente", controller.getRefinanciado);
+  app.get("/api/cliente/creditosrefinanciados/:idcliente", [authJwt.verifyToken], controller.getCreditosRefinanciados);
   app.post("/api/cliente", [authJwt.verifyToken],  controller.upload, controller.postCliente);
   app.put("/api/cliente/:idcliente", [authJwt.verifyToken], controller.upload, controller.putCliente);
   app.delete("/api/cliente/:idcliente", [authJwt.verifyToken], controller.deleteCliente);  

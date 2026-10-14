@@ -268,6 +268,37 @@ const deleteCliente = async (req, res) => {
   };
 
 
+  // No hay FK entre el crédito refinanciado y el que lo reemplaza: se toma el primer
+  // crédito posterior del cliente dado de alta desde el día de la refinanciación.
+  const agregarCreditoRefinanciador = async (idcliente, creditos) => {
+    if (!creditos.some((c) => c.cuotasrefinanciadas > 0 || c.estado === "Refinanciado")) {
+      return creditos;
+    }
+    const creditosCliente = await Credito.findAll({
+      attributes: ["idcredito", "monto", "estado", "fechaalta"],
+      where: { idcliente },
+      order: [["idcredito", "ASC"]],
+      raw: true,
+    });
+    const dia = (fecha) => (fecha ? new Date(fecha).toISOString().slice(0, 10) : "");
+    return creditos.map((credito) => {
+      if (!(credito.cuotasrefinanciadas > 0 || credito.estado === "Refinanciado")) {
+        return credito;
+      }
+      const nuevo = creditosCliente.find(
+        (c) =>
+          c.idcredito > credito.idcredito &&
+          dia(c.fechaalta) >= dia(credito.fecharefinanciacion)
+      );
+      return {
+        ...credito,
+        refinanciadoen: nuevo
+          ? { idcredito: nuevo.idcredito, monto: nuevo.monto, estado: nuevo.estado }
+          : null,
+      };
+    });
+  };
+
   const getResumenClienteEstado = async (req, res) => {
     try {
       const idcliente = req.params.idcliente
@@ -288,15 +319,16 @@ const deleteCliente = async (req, res) => {
  const getResumenClienteUltimosCreditosDetalles = async (req, res) => {
     try {
       const idcliente = req.params.idcliente
-      const sqlquery = "SELECT DATEDIFF(fechaedicion, fechapago) diasdeatraso, idcredito, cuota, idcredito, tipotransaccion, fechapago, fechaedicion"+
+      const sqlquery = "SELECT DATEDIFF(fechaedicion, fechapago) diasdeatraso, idcredito, cuota, tipotransaccion, fechapago, fechaedicion, COALESCE(refinanciado, 0) refinanciado"+
                   " FROM creditosdetalles "+
                   " WHERE idcredito IN ("+
                   " SELECT idcredito FROM ("+
                   " SELECT idcredito "+
                   " FROM creditos"+
-                  " WHERE idcliente = '"+idcliente+"' AND estado = 'Finalizado'"+
+                  " WHERE idcliente = :idcliente AND estado IN ('Finalizado', 'Refinanciado')"+
                   " ORDER BY idcredito DESC LIMIT 3) AS ultimos_creditos);";
       const rendicion = await sequelize.query(sqlquery, {
+        replacements: { idcliente },
         type: QueryTypes.SELECT,
       });
       return res.status(200).json(rendicion);
@@ -309,22 +341,27 @@ const deleteCliente = async (req, res) => {
    const getResumenClienteUltimosCreditos = async (req, res) => {
     try {
       const idcliente = req.params.idcliente
-      const sqlquery = " SELECT creditosdetalles.idcredito, max(creditos.monto) monto, COUNT(CASE WHEN DATEDIFF(creditosdetalles.fechaedicion, creditosdetalles.fechapago) = 0 THEN 1 END) AS sinatraso, "
-                        + " COUNT(CASE WHEN DATEDIFF(creditosdetalles.fechaedicion, creditosdetalles.fechapago) BETWEEN 1 AND 4 THEN 1 END) AS atrasohasta4dias, "
-                        + " COUNT(CASE WHEN DATEDIFF(creditosdetalles.fechaedicion, creditosdetalles.fechapago) > 4 THEN 1 END) AS atrasomas4dias "
+      // Las cuotas refinanciadas no se pagaron: se cuentan aparte y no como atraso
+      const sqlquery = " SELECT creditosdetalles.idcredito, max(creditos.monto) monto, max(creditos.estado) estado, max(creditos.fechainicio) fechainicio, "
+                        + " COUNT(CASE WHEN COALESCE(creditosdetalles.refinanciado, 0) = 0 AND DATEDIFF(creditosdetalles.fechaedicion, creditosdetalles.fechapago) <= 0 THEN 1 END) AS sinatraso, "
+                        + " COUNT(CASE WHEN COALESCE(creditosdetalles.refinanciado, 0) = 0 AND DATEDIFF(creditosdetalles.fechaedicion, creditosdetalles.fechapago) BETWEEN 1 AND 4 THEN 1 END) AS atrasohasta4dias, "
+                        + " COUNT(CASE WHEN COALESCE(creditosdetalles.refinanciado, 0) = 0 AND DATEDIFF(creditosdetalles.fechaedicion, creditosdetalles.fechapago) > 4 THEN 1 END) AS atrasomas4dias, "
+                        + " COUNT(CASE WHEN creditosdetalles.refinanciado = 1 THEN 1 END) AS cuotasrefinanciadas, "
+                        + " MAX(CASE WHEN creditosdetalles.refinanciado = 1 THEN creditosdetalles.fechaedicion END) AS fecharefinanciacion "
                         + " FROM creditosdetalles  inner join creditos on creditos.idcredito = creditosdetalles.idcredito"
                         + " WHERE creditosdetalles.idcredito  IN ("
                         + " SELECT idcredito FROM ("
                         + " SELECT idcredito "
                         + " FROM creditos "
-                        + " WHERE idcliente =  '"+idcliente+"' AND estado = 'Finalizado'"
+                        + " WHERE idcliente = :idcliente AND estado IN ('Finalizado', 'Refinanciado')"
                         + " ORDER BY idcredito DESC"
                         + " LIMIT 3"
-                        + " ) AS ultimos_creditos) GROUP BY creditosdetalles.idcredito;";
+                        + " ) AS ultimos_creditos) GROUP BY creditosdetalles.idcredito ORDER BY creditosdetalles.idcredito DESC;";
       const rendicion = await sequelize.query(sqlquery, {
+        replacements: { idcliente },
         type: QueryTypes.SELECT,
       });
-      return res.status(200).json(rendicion);
+      return res.status(200).json(await agregarCreditoRefinanciador(idcliente, rendicion));
     } catch (error) {
       console.log(error);
       res.json({ message: error.message });
@@ -349,6 +386,27 @@ const deleteCliente = async (req, res) => {
     }
   };
 
+  const getCreditosRefinanciados = async (req, res) => {
+    try {
+      const sqlquery = "SELECT creditos.idcredito, MAX(creditos.monto) monto, MAX(creditos.estado) estado, MAX(creditos.fechainicio) fechainicio, " +
+                        "COUNT(creditosdetalles.idcreditodetalle) cuotasrefinanciadas, MAX(creditosdetalles.fechaedicion) fecharefinanciacion " +
+                        "FROM creditos " +
+                        "LEFT JOIN creditosdetalles ON creditosdetalles.idcredito = creditos.idcredito AND creditosdetalles.refinanciado = 1 " +
+                        "WHERE creditos.idcliente = :idcliente " +
+                        "AND (creditos.estado = 'Refinanciado' OR creditosdetalles.idcreditodetalle IS NOT NULL) " +
+                        "GROUP BY creditos.idcredito " +
+                        "ORDER BY creditos.idcredito DESC";
+      const creditos = await sequelize.query(sqlquery, {
+        replacements: { idcliente: req.params.idcliente },
+        type: QueryTypes.SELECT,
+      });
+      return res.status(200).json(await agregarCreditoRefinanciador(req.params.idcliente, creditos));
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: error.message });
+    }
+  };
+
 module.exports = {
   getCliente,
   getClientexEmpresa,
@@ -360,5 +418,6 @@ module.exports = {
   getResumenClienteUltimosCreditos,
   getResumenClienteUltimosCreditosDetalles,
   upload,
-  getRefinanciado
+  getRefinanciado,
+  getCreditosRefinanciados
 };

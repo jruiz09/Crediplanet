@@ -85,6 +85,19 @@ export const getRefinanciados = async (idCliente,token) => {
   }
 };
 
+export const getCreditosRefinanciados = async (idCliente,token) => {
+  try {
+    const response = await axios(UrlClientes + "/creditosrefinanciados/" +idCliente, {
+      headers: {
+        "cs-token": token,
+      },
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
 /*
 export const postClientes = async (Post, token) => {
   try {
